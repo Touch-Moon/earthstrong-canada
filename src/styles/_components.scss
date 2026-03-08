@@ -1,0 +1,125 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Earthstrong Canada — Shared UI Components
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ━━ Button ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-btn {
+  @include pill-btn;
+
+  // Filled variant (default)
+  &--filled {
+    background-color: $c-green;
+    color: $c-white;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+
+  // Outline variant
+  &--outline {
+    border: 1px solid $c-charcoal;
+    color: $c-charcoal;
+
+    &:hover {
+      background-color: $c-charcoal;
+      color: $c-white;
+    }
+  }
+}
+
+// ━━ Badge ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-family: $f-sans;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background-color: $c-cream;
+  color: $c-charcoal;
+}
+
+// ━━ Section Heading ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-section-heading {
+  &__tag {
+    @include label-text($c-green);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-family: $f-sans;
+    font-weight: 600;
+    color: $c-charcoal;
+    font-size: clamp(1.75rem, 3.5vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 3rem;
+    max-width: 42rem;
+  }
+}
+
+// ━━ Scroll Up Badge (footer) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-scroll-up-badge {
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+
+  &__svg {
+    position: absolute;
+    inset: 0;
+    animation: es-spin 20s linear infinite;
+  }
+
+  &__text {
+    fill: $c-white;
+  }
+
+  &__arrow {
+    position: relative;
+    z-index: 10;
+    color: $c-white;
+    font-size: 1.25rem;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover &__arrow {
+    transform: scale(1.1);
+  }
+}
+
+// ━━ Scroll Badge (hero) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-scroll-badge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 106px;
+  height: 106px;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  &__svg {
+    position: absolute;
+    inset: 0;
+    animation: es-spin 20s linear infinite;
+  }
+
+  &__arrow {
+    position: relative;
+    z-index: 10;
+    color: $c-orange;
+    font-size: 1.25rem;
+    animation: es-scroll-arrow 1.6s ease-in-out infinite;
+  }
+}

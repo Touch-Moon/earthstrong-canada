@@ -1,0 +1,71 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Earthstrong Canada — Subpage Hero Marquee + B-Scroll Text
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ━━ Subpage Marquee Title ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// generousbranding.com .s-marquee-title 재현:
+// 뷰포트 너비 전체를 채우는 대형 uppercase 텍스트
+// GSAP로 word-inner / word-ghost translateY(83% → 0)
+
+.es-marquee-title {
+  height: 0.86em;
+  overflow: hidden;
+  line-height: 1;
+  font-size: clamp(10rem, 21.5vw, 21rem);
+  font-weight: 400;
+  font-family: $f-sans;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 4.5rem;
+}
+
+.es-marquee-word {
+  display: inline-block;
+  position: relative;
+  animation: es-marquee-title var(--duration, 10s) linear infinite;
+}
+
+// 초기 숨김: GSAP가 translateY(0)으로 리빌
+.es-word-inner,
+.es-word-ghost {
+  transform: translateY(83%);
+}
+
+.es-word-inner {
+  display: block;
+  padding-right: 0.8235em;
+  background: url('/images/icons/disc.svg') calc(100% - 0.31em) 51% / 0.1852em no-repeat;
+}
+
+.es-word-ghost {
+  position: absolute;
+  top: 0;
+  display: block;
+
+  &::before {
+    content: attr(data-title);
+    display: block;
+    padding-right: 0.8235em;
+    background: url('/images/icons/disc.svg') calc(100% - 0.31em) 51% / 0.1852em no-repeat;
+  }
+
+  &:nth-child(2) { left: 100%; }
+  &:nth-child(3) { left: 200%; }
+}
+
+// ━━ B-Scroll Text Reveal ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Each line: opacity 0 + white overlay (absolute div)
+// On scroll enter: opacity 1 + overlay scaleX 0 (GSAP)
+
+.es-scroll-line {
+  position: relative;
+  opacity: 0;
+  line-height: 1.08;
+}
+
+.es-scroll-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transform-origin: 100% 50%;
+}

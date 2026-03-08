@@ -1,0 +1,179 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Earthstrong Canada — Vision Page
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ━━ Vision Hero (b-scroll intro) ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-vision-intro {
+  background-color: $c-white;
+
+  &__inner {
+    @include container;
+    padding-bottom: 5rem;
+
+    @include md { padding-bottom: 8rem; }
+  }
+
+  &__text-wrap {
+    max-width: 64rem;
+  }
+
+  &__line {
+    font-size: clamp(2rem, 4.5vw, 3.75rem);
+    font-family: $f-sans;
+    font-weight: 400;
+    line-height: 1.08;
+  }
+
+  &__overlay-bg {
+    background-color: $c-white;
+  }
+
+  &__desc {
+    margin-top: 2.5rem;
+    max-width: 42rem;
+    font-family: $f-sans;
+    font-size: 1rem;
+    color: $c-gray-500;
+    line-height: 1.6;
+    opacity: 0.85;
+
+    @include md { font-size: 1.125rem; }
+  }
+}
+
+// ━━ Service Pillars ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-pillars {
+  @include section-padding;
+  background-color: $c-white;
+
+  &__inner { @include container; }
+
+  &__tag {
+    @include label-text($c-green);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: clamp(1.75rem, 3.5vw, 3rem);
+    color: $c-charcoal;
+    margin-bottom: 4rem;
+    max-width: 42rem;
+    line-height: 1.1;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+
+    @include md { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  &__item {
+    border-top: 2px solid $c-green;
+    padding-top: 2rem;
+    padding-right: 0;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+
+    @include md { padding-right: 2.5rem; }
+
+    &--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &__num {
+    font-family: $f-sans;
+    font-size: 3rem;
+    color: $c-gray-200;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+
+  &__pillar-title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: clamp(1.25rem, 2vw, 1.875rem);
+    color: $c-charcoal;
+    margin-bottom: 1rem;
+  }
+
+  &__desc {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-500;
+    line-height: 1.6;
+
+    @include md { font-size: 1rem; }
+  }
+}
+
+// ━━ Client Showcase (Partner logos) ━━━━━━━━━━━━━━━━━━━━━━━━
+.es-showcase {
+  @include section-padding;
+  background-color: $c-white;
+
+  &__inner { @include container; }
+
+  &__tag {
+    @include label-text($c-green);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: clamp(1.75rem, 3.5vw, 3rem);
+    color: $c-charcoal;
+    margin-bottom: 3rem;
+    line-height: 1.1;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    align-items: center;
+
+    @include md {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: filter 0.3s ease;
+  }
+
+  &__logo {
+    position: relative;
+    width: 100%;
+    height: 4rem;
+    filter: grayscale(1);
+    transition: filter 0.3s ease;
+
+    img { object-fit: contain; }
+
+    .es-showcase__item:hover & {
+      filter: grayscale(0);
+    }
+  }
+
+  &__name {
+    margin-top: 0.75rem;
+    font-family: $f-sans;
+    font-size: 0.75rem;
+    text-align: center;
+    color: $c-gray-400;
+  }
+}

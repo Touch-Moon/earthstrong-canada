@@ -1,0 +1,107 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Earthstrong Canada — Mixins
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ── Breakpoint mixins ─────────────────────────────────────────
+@mixin sm  { @media (min-width: $bp-sm)  { @content; } }
+@mixin md  { @media (min-width: $bp-md)  { @content; } }
+@mixin lg  { @media (min-width: $bp-lg)  { @content; } }
+@mixin xl  { @media (min-width: $bp-xl)  { @content; } }
+
+@mixin max-md { @media (max-width: #{$bp-md - 1px}) { @content; } }
+@mixin max-lg { @media (max-width: #{$bp-lg - 1px}) { @content; } }
+
+// ── Container ─────────────────────────────────────────────────
+@mixin container {
+  max-width: $container-max;
+  margin-left:  auto;
+  margin-right: auto;
+  padding-left:  $container-px;
+  padding-right: $container-px;
+
+  @include md {
+    padding-left:  $container-px-md;
+    padding-right: $container-px-md;
+  }
+  @include lg {
+    padding-left:  $container-px-lg;
+    padding-right: $container-px-lg;
+  }
+}
+
+// ── Section padding ───────────────────────────────────────────
+@mixin section-padding {
+  padding-top:    $section-py;
+  padding-bottom: $section-py;
+
+  @include md {
+    padding-top:    $section-py-md;
+    padding-bottom: $section-py-md;
+  }
+  @include lg {
+    padding-top:    $section-py-lg;
+    padding-bottom: $section-py-lg;
+  }
+}
+
+// ── Label text (small caps) ───────────────────────────────────
+@mixin label-text($color: $c-teal) {
+  font-family: $f-sans;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $color;
+}
+
+// ── Heading ───────────────────────────────────────────────────
+@mixin heading-lg {
+  font-family: $f-sans;
+  font-weight: 600;
+  color: $c-charcoal;
+  font-size: clamp(1.75rem, 4vw, 3.5rem);
+  line-height: 1.1;
+}
+
+// ── Pill button ───────────────────────────────────────────────
+@mixin pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: $f-sans;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// ── Aspect ratio (before-hack for IE/older) ───────────────────
+@mixin aspect-ratio($w, $h) {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    display: block;
+    padding-top: percentage($h / $w);
+    content: '';
+  }
+}
+
+// ── Image fill ────────────────────────────────────────────────
+@mixin image-fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+// ── Truncate text ─────────────────────────────────────────────
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,51 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Earthstrong Canada — Utility Classes
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ── Layout container ─────────────────────────────────────────
+.es-container {
+  @include container;
+}
+
+// ── Section vertical padding ─────────────────────────────────
+.es-section {
+  @include section-padding;
+}
+
+// ── Animation utilities ───────────────────────────────────────
+.es-anim-marquee {
+  animation: es-marquee 35s linear infinite;
+}
+
+.es-anim-spin {
+  animation: es-spin 20s linear infinite;
+}
+
+// ── Pause partner marquee on hover ───────────────────────────
+.es-pause-anim:hover .es-anim-marquee {
+  animation-play-state: paused;
+}
+
+// ── Trademark superscript (shared across pages) ──────────────
+// Usage: <sup className="es-trademark">™</sup>
+// Overrides browser's default <sup> font-size: smaller
+.es-trademark {
+  font-size: 0.45em;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  vertical-align: super;
+}
+
+// ── Screen-reader only ───────────────────────────────────────
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

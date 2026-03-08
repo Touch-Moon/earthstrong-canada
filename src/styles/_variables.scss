@@ -1,0 +1,49 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Earthstrong Canada — Design Tokens
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ── Colors ────────────────────────────────────────────────────
+$c-dark:     #141414;         // Near-black (footer, dark sections)
+$c-white:    #ffffff;         // White background
+$c-green:    #000000;         // Brand CTA → black (B&W palette)
+$c-teal:     #767676;         // Secondary text → mid-gray
+$c-cream:    #ececec;         // Light gray background
+$c-orange:   #ea5b0c;         // Accent (scroll badge, arrows)
+$c-charcoal: #141414;         // Body text → near-black
+
+// Gray palette (Tailwind equivalents)
+$c-gray-100: #f3f4f6;
+$c-gray-200: #e5e7eb;
+$c-gray-300: #d1d5db;
+$c-gray-400: #9ca3af;
+$c-gray-500: #6b7280;
+$c-gray-600: #4b5563;
+$c-gray-700: #374151;
+$c-gray-800: #1f2937;
+
+// ── Typography ────────────────────────────────────────────────
+// Urbanist (Google Font) via CSS variable set by next/font
+$f-sans: var(--font-urbanist), sans-serif;
+
+// ── Container ─────────────────────────────────────────────────
+$container-max:    1920px;
+$container-px:     1.5rem;    // mobile
+$container-px-md:  3rem;      // ≥ 768px
+$container-px-lg:  5rem;      // ≥ 1024px
+
+// ── Section padding ───────────────────────────────────────────
+$section-py:       5rem;      // mobile
+$section-py-md:    8rem;      // ≥ 768px
+$section-py-lg:    10rem;     // ≥ 1024px
+
+// ── Breakpoints ───────────────────────────────────────────────
+$bp-sm:  640px;
+$bp-md:  768px;
+$bp-lg:  1024px;
+$bp-xl:  1280px;
+
+// ── Transitions ───────────────────────────────────────────────
+$ease-smooth:  cubic-bezier(0.19, 1, 0.22, 1);
+$ease-in-out:  cubic-bezier(0.645, 0.045, 0.355, 1);
+$ease-expo:    cubic-bezier(0.86, 0, 0.07, 1);
+$ease-soft:    cubic-bezier(0.23, 1, 0.32, 1);

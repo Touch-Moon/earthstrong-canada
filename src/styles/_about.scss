@@ -1,0 +1,311 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Earthstrong Canada — About Page
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ━━ Mission Statement (b-scroll text section) ━━━━━━━━━━━━━━━
+.es-mission {
+  background-color: $c-white;
+
+  &__inner {
+    @include container;
+    padding-bottom: 5rem;
+
+    @include md { padding-bottom: 8rem; }
+  }
+
+  &__text-wrap {
+    max-width: 64rem;
+  }
+
+  &__line {
+    font-size: clamp(2rem, 4.5vw, 3.75rem);
+    font-family: $f-sans;
+    font-weight: 400;
+    line-height: 1.08;
+  }
+
+  &__overlay-bg {
+    background-color: $c-white;
+  }
+
+  &__desc {
+    margin-top: 2.5rem;
+    max-width: 42rem;
+    font-family: $f-sans;
+    font-size: 1rem;
+    color: $c-gray-500;
+    line-height: 1.6;
+    opacity: 0.85;
+
+    @include md { font-size: 1.125rem; }
+  }
+}
+
+// ━━ Team Profiles ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// s-people-grid / sb-member 재현 (generousbranding.com/agence/)
+.es-team {
+  @include section-padding;
+  background-color: $c-white;
+
+  &__inner {
+    @include container;
+  }
+
+  &__heading {
+    margin-bottom: 4rem;
+  }
+
+  &__tag {
+    @include label-text($c-green);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: clamp(1.75rem, 3.5vw, 3.5rem);
+    color: $c-charcoal;
+    line-height: 1.1;
+  }
+
+  // Flex-wrap grid (matches generousbranding.com)
+  &__list {
+    display: flex;
+    flex-flow: wrap;
+    align-items: flex-start;
+  }
+}
+
+// ━━ Individual Team Member Card ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-member {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 3rem;
+
+  &:first-child { margin-top: 0; }
+
+  // ── Tablet: 2-column ────────────────────────────────────
+  @media (min-width: $bp-sm) and (max-width: #{$bp-lg - 1px}) {
+    width: calc((100% - 3rem) / 2);
+    margin-right: 3rem;
+    margin-top: 4rem;
+
+    &:nth-child(-n+2) { margin-top: 0; }
+    &:nth-child(2n)   { margin-right: 0; }
+  }
+
+  // ── Desktop: 4-column ───────────────────────────────────
+  @include lg {
+    width: calc((100% - 9rem) / 4);
+    margin-right: 3rem;
+    margin-top: 5rem;
+
+    &:nth-child(-n+4) { margin-top: 0; }
+    &:nth-child(4n)   { margin-right: 0; }
+  }
+
+  // ── Image container (::before = 3:4 aspect ratio) ───────
+  &__img {
+    position: relative;
+    order: 1;
+    overflow: hidden;
+    background-color: #e5e5e5;
+
+    &::before {
+      display: block;
+      padding-top: 140.553%; // 3:4 ratio
+      content: '';
+    }
+
+    img { object-fit: cover; }
+  }
+
+  // ── Bio overlay (clip-path reveal on hover) ─────────────
+  &__bio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    padding: 1.8889em 0.4444em;
+    width: 100%;
+    height: 100%;
+    background-color: $c-white;
+    border: 1px solid $c-dark;
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    opacity: 0;
+    transform: translateY(0.5rem);
+    font-size: 0.75rem;
+    transition:
+      clip-path 0.4s $ease-in-out,
+      transform  0.4s $ease-in-out,
+      opacity    0.4s linear;
+    pointer-events: none;
+  }
+
+  &__bio-text {
+    padding: 0 2em;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    transform: translateY(3em);
+    transition: transform 0.4s linear;
+  }
+
+  &__bio-name {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__bio-title {
+    font-family: $f-sans;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $c-teal;
+    margin-bottom: 1rem;
+  }
+
+  &__bio-desc {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-700;
+    line-height: 1.6;
+  }
+
+  // ── Hover: reveal bio overlay ────────────────────────────
+  &:hover &__bio {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      clip-path 0.6s $ease-expo,
+      transform  0.6s $ease-expo,
+      opacity    0s linear;
+    pointer-events: auto;
+  }
+
+  &:hover &__bio-text {
+    transform: translateY(0);
+    transition: transform 1.2s $ease-soft;
+  }
+
+  // ── Name + title below image ─────────────────────────────
+  &__info {
+    order: 2;
+    margin-top: 0.75rem;
+  }
+
+  &__name {
+    font-family: $f-sans;
+    font-size: 1rem;
+    color: $c-charcoal;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  &__title-text {
+    margin-top: 0.125rem;
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-teal;
+  }
+}
+
+// ━━ Client Grid (Where to Find Us) ━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-client-grid {
+  @include section-padding;
+  background-color: $c-white;
+
+  &__inner { @include container; }
+
+  &__tag {
+    @include label-text($c-green);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: clamp(1.75rem, 3.5vw, 3rem);
+    color: $c-charcoal;
+    margin-bottom: 3rem;
+    line-height: 1.1;
+  }
+
+  &__provinces {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+
+    @include md { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  &__province-title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: $c-charcoal;
+    border-top: 2px solid $c-green;
+    padding-top: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &__partners {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__partner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__partner-logo {
+    position: relative;
+    width: 5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+
+    img { object-fit: contain; }
+  }
+
+  &__partner-name {
+    font-family: $f-sans;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: $c-charcoal;
+  }
+
+  &__partner-loc {
+    font-family: $f-sans;
+    font-size: 0.75rem;
+    color: $c-gray-400;
+  }
+
+  &__cta {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid $c-gray-300;
+  }
+
+  &__cta-text {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-500;
+  }
+
+  &__cta-link {
+    color: $c-green;
+    font-weight: 500;
+    transition: text-decoration 0.2s;
+
+    &:hover { text-decoration: underline; }
+  }
+}

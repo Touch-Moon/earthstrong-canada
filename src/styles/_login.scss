@@ -1,0 +1,178 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Earthstrong Canada — Login Page
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+.es-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $c-white;
+  padding: 1rem;
+
+  &__wrap {
+    width: 100%;
+    max-width: 28rem;
+  }
+
+  &__card {
+    background-color: $c-white;
+    padding: 2rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+
+    @include md { padding: 3rem; }
+  }
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+
+    img {
+      height: 2.5rem;
+      width: auto;
+      object-fit: contain;
+    }
+  }
+
+  &__title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: $c-charcoal;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  &__subtitle {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-400;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  &__field {
+    // wraps label + input
+  }
+
+  &__label {
+    display: block;
+    font-family: $f-sans;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $c-gray-500;
+    margin-bottom: 0.5rem;
+  }
+
+  &__input {
+    width: 100%;
+    border: 1px solid $c-gray-200;
+    border-radius: 0.375rem;
+    padding: 0.75rem 1rem;
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-charcoal;
+    transition: border-color 0.2s ease;
+    outline: none;
+
+    &:focus {
+      border-color: $c-green;
+    }
+  }
+
+  // Password field wrapper
+  &__pw-wrap {
+    position: relative;
+  }
+
+  &__pw-toggle {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.875rem;
+    color: $c-gray-400;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover { color: $c-charcoal; }
+  }
+
+  &__options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__remember {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+
+  &__checkbox {
+    width: 1rem;
+    height: 1rem;
+    accent-color: $c-green;
+  }
+
+  &__remember-label {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-500;
+  }
+
+  &__forgot {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-green;
+    transition: text-decoration 0.2s;
+
+    &:hover { text-decoration: underline; }
+  }
+
+  &__submit {
+    width: 100%;
+    background-color: $c-green;
+    color: $c-white;
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    border: none;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: opacity 0.3s ease;
+
+    &:hover { opacity: 0.85; }
+  }
+
+  &__footer {
+    font-family: $f-sans;
+    font-size: 0.75rem;
+    text-align: center;
+    color: $c-gray-400;
+    margin-top: 2rem;
+  }
+
+  &__footer-link {
+    color: $c-green;
+    transition: text-decoration 0.2s;
+
+    &:hover { text-decoration: underline; }
+  }
+}

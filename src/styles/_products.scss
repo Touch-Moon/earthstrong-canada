@@ -1,0 +1,483 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Earthstrong Canada — Products / Nutrition Pages
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ━━ Filter Tabs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-filter-tabs {
+  // Mode toggle (All / By Expertise)
+  &__modes {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid $c-gray-200;
+    padding-bottom: 1rem;
+  }
+
+  &__mode-btn {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+
+    &--active {
+      background-color: $c-charcoal;
+      color: $c-white;
+    }
+
+    &:not(.es-filter-tabs__mode-btn--active) {
+      color: $c-gray-500;
+      background: none;
+
+      &:hover { color: $c-charcoal; }
+    }
+  }
+
+  // Expertise sub-tabs
+  &__expertise {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  &__exp-btn {
+    font-family: $f-sans;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid;
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &--active {
+      background-color: $c-green;
+      color: $c-white;
+      border-color: $c-green;
+    }
+
+    &:not(.es-filter-tabs__exp-btn--active) {
+      border-color: $c-gray-300;
+      color: $c-gray-500;
+      background: none;
+
+      &:hover {
+        border-color: $c-green;
+        color: $c-green;
+      }
+    }
+  }
+
+  // Products grid
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3.5rem;
+    }
+  }
+
+  &__grid-item {
+    animation: es-fade-in 0.5s ease forwards;
+  }
+}
+
+// ━━ Product Card ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-product-card {
+  display: block;
+
+  &:hover .es-product-card__thumb img { transform: scale(1.05); }
+  &:hover .es-product-card__title { color: $c-green; }
+  &:hover .es-product-card__arrow { transform: translateX(0.5rem); }
+
+  &__thumb {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+
+    img { object-fit: cover; transition: transform 0.5s ease; }
+  }
+
+  &__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  &__title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: $c-charcoal;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: color 0.3s ease;
+  }
+
+  &__arrow {
+    transition: transform 0.3s ease;
+  }
+
+  &__desc {
+    margin-top: 0.5rem;
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-500;
+    line-height: 1.6;
+  }
+}
+
+// ━━ Next Product Banner ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-next-product {
+  position: relative;
+  height: 50vh;
+  min-height: 320px;
+  overflow: hidden;
+  background-color: $c-dark;
+  display: flex;
+  align-items: flex-end;
+
+  &__img { object-fit: cover; opacity: 0.5; }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  }
+
+  &__inner {
+    @include container;
+    position: relative;
+    z-index: 10;
+    padding-bottom: 3rem;
+    width: 100%;
+  }
+
+  &__label {
+    @include label-text($c-gray-400);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: clamp(1.875rem, 4vw, 3.75rem);
+    color: $c-white;
+    line-height: 1.1;
+    transition: opacity 0.3s ease;
+
+    &:hover { opacity: 0.8; }
+  }
+
+  &__arrow {
+    display: inline-block;
+    margin-left: 0.5rem;
+    color: $c-orange;
+    transition: transform 0.3s ease;
+
+    .es-next-product__title:hover & {
+      transform: translateX(0.5rem);
+    }
+  }
+}
+
+// ━━ Product Detail Page ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-product-detail {
+  // Hero section
+  &__hero {
+    position: relative;
+    height: 60vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: $c-dark;
+
+    @include md { height: 75vh; }
+
+    img { object-fit: cover; opacity: 0.7; }
+  }
+
+  &__hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.2), transparent);
+  }
+
+  &__hero-inner {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    @include container;
+    padding-bottom: 3rem;
+    z-index: 10;
+
+    @include md { padding-bottom: 4rem; }
+  }
+
+  &__hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__hero-badge {
+    background-color: rgba(255,255,255,0.2);
+    color: $c-white;
+    border: 0;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__hero-title {
+    font-family: $f-sans;
+    font-weight: 700;
+    font-size: clamp(3rem, 7vw, 8rem);
+    color: $c-white;
+    line-height: 1;
+  }
+
+  &__hero-tagline {
+    margin-top: 1rem;
+    font-family: $f-sans;
+    color: $c-gray-300;
+    font-size: 1rem;
+
+    @include md { font-size: 1.125rem; }
+  }
+
+  // Metadata bar
+  &__meta {
+    border-bottom: 1px solid $c-gray-200;
+    background-color: $c-white;
+  }
+
+  &__meta-inner {
+    @include container;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    @include md { gap: 4rem; }
+  }
+
+  &__meta-label {
+    font-family: $f-sans;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $c-gray-400;
+    margin-bottom: 0.25rem;
+  }
+
+  &__meta-value {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-charcoal;
+    font-weight: 500;
+  }
+
+  // Body
+  &__body {
+    @include section-padding;
+    background-color: $c-white;
+  }
+
+  &__body-inner {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+
+    @include lg {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5rem;
+    }
+  }
+
+  &__overview-tag {
+    @include label-text($c-green);
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  &__overview-text {
+    font-family: $f-sans;
+    font-size: 1.125rem;
+    color: $c-charcoal;
+    line-height: 1.7;
+
+    @include md { font-size: 1.25rem; }
+  }
+
+  &__features-tag {
+    @include label-text($c-green);
+    display: block;
+    margin-bottom: 0;
+  }
+
+  &__features {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  &__feature {
+    border-top: 1px solid $c-gray-100;
+    padding-top: 1.25rem;
+  }
+
+  &__feature-title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: $c-charcoal;
+    margin-bottom: 0.5rem;
+  }
+
+  &__feature-desc {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-500;
+    line-height: 1.6;
+  }
+
+  // Sub-products
+  &__subproducts {
+    @include section-padding;
+    background-color: $c-white;
+  }
+
+  &__subproducts-inner { @include container; }
+
+  &__subproducts-tag {
+    @include label-text($c-green);
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  &__subproducts-title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    color: $c-charcoal;
+    margin-bottom: 3rem;
+    line-height: 1.1;
+  }
+
+  &__subproducts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    @include sm  { grid-template-columns: repeat(2, 1fr); }
+    @include lg  { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  &__subproduct {
+    background-color: $c-white;
+    padding: 1.5rem;
+    border-top: 2px solid $c-green;
+  }
+
+  &__subproduct-focus {
+    @include label-text($c-green);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  &__subproduct-name {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: $c-charcoal;
+    margin-bottom: 0.75rem;
+  }
+
+  &__subproduct-desc {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-500;
+    line-height: 1.6;
+  }
+
+  // Gallery
+  &__gallery {
+    background-color: $c-white;
+  }
+
+  &__gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @include md { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  &__gallery-img {
+    position: relative;
+    aspect-ratio: 4 / 3;
+
+    img { object-fit: cover; }
+  }
+}
+
+// ━━ Products Index Page ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-products-page {
+  padding-top: 8rem;
+
+  @include md { padding-top: 10rem; }
+
+  &__header {
+    margin-bottom: 4rem;
+
+    @include md { margin-bottom: 5rem; }
+  }
+
+  &__tag {
+    @include label-text($c-green);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-family: $f-sans;
+    font-weight: 700;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: $c-charcoal;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  &__intro {
+    font-family: $f-sans;
+    font-size: 1rem;
+    color: $c-gray-500;
+    line-height: 1.6;
+    max-width: 40rem;
+
+    @include md { font-size: 1.125rem; }
+  }
+}
+
+// ━━ Section Spacer ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-section-spacer {
+  @include section-padding;
+}

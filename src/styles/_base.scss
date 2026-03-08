@@ -1,0 +1,21 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Earthstrong Canada — Base Typography & Body
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+body {
+  font-family: $f-sans;
+  font-size: 1rem;
+  color: $c-charcoal;
+  background-color: $c-white;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $f-sans;
+}
+
+// ── Selection colour ──────────────────────────────────────────
+::selection {
+  background-color: $c-charcoal;
+  color: $c-white;
+}

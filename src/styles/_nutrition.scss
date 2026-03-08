@@ -1,0 +1,782 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Earthstrong Canada — Nutrition Page
+// Flat sidebar (6 products) + text-focused product detail
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+.es-nutrition {
+  background-color: $c-white;
+
+  // ━━ Main Layout ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  &__body {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+    gap: 2rem;
+
+    @include lg {
+      grid-template-columns: 240px 1fr;
+      gap: 5rem;
+      padding-top: 4rem;
+      padding-bottom: 8rem;
+      align-items: start;
+    }
+  }
+
+  // ━━ Sidebar — flat product list (desktop only) ━━━━━━━━━━
+  &__sidebar {
+    display: none;
+
+    @include lg {
+      display: block;
+      position: sticky;
+      top: 80px;
+    }
+  }
+
+  &__categories {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  // Each product name = a button in the sidebar
+  &__category {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    font-family: $f-sans;
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: $c-gray-500;
+    padding: 0.55rem 0;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover { color: $c-charcoal; }
+    &--active { color: $c-green; font-weight: 500; }
+  }
+
+  // Trademark <sup> in sidebar button
+  &__trademark {
+    font-size: 0.55em;
+    line-height: 1;
+  }
+
+  // ━━ Mobile Dropdown (sticky) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  &__mobile-nav {
+    display: block;
+    position: sticky;
+    top: 76px;
+    z-index: 10;
+    background-color: $c-white;
+    padding: 0.5rem 0;
+
+    @include lg { display: none; }
+  }
+
+  &__mobile-select {
+    width: 100%;
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-charcoal;
+    border: 1px solid $c-gray-200;
+    border-radius: 0.375rem;
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    background-color: $c-white;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23141414' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+
+    &:focus { outline: none; border-color: $c-charcoal; }
+  }
+
+  // ━━ Content Area ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  &__content {
+    min-width: 0;
+  }
+
+  &__section {
+    // no extra margin needed — single unified section
+  }
+
+  // ━━ Product List ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  &__products {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__product {
+    border-top: 1px solid $c-gray-200;
+    text-align: left; // all content left-aligned
+
+    &:first-child { border-top: none; }
+  }
+
+  // Full-card button (button reset + flex column + left-align)
+  &__product-link {
+    // Button reset
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    // Layout
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; // force left
+    gap: 0.875rem;
+    padding: 2.5rem 0;
+
+    @include md { padding: 3rem 0; }
+
+    &:hover .es-nutrition__product-name {
+      color: $c-green;
+    }
+
+    &:hover .es-nutrition__product-cta {
+      background-color: $c-charcoal;
+      color: $c-white;
+    }
+
+    &:hover .es-nutrition__product-cta-arrow {
+      transform: translateX(3px);
+    }
+  }
+
+  &__product-name {
+    font-family: $f-sans;
+    font-size: clamp(1.75rem, 3.5vw, 3rem);
+    font-weight: 400;
+    color: $c-charcoal;
+    line-height: 1.1;
+    text-align: left;
+    transition: color 0.3s ease;
+  }
+
+  // Trademark <sup> in product list items
+  &__product-trademark {
+    font-size: 0.45em;
+    line-height: 1;
+  }
+
+  &__product-desc {
+    font-family: $f-sans;
+    font-size: 0.9375rem;
+    color: $c-gray-500;
+    line-height: 1.65;
+    max-width: 52rem;
+    text-align: left;
+  }
+
+  // "X formulations" meta line
+  &__product-meta {
+    font-family: $f-sans;
+    font-size: 0.8125rem;
+    color: $c-gray-400;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: left;
+  }
+
+  // "View Product →" CTA pill
+  &__product-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+    font-family: $f-sans;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $c-charcoal;
+    border: 1px solid $c-charcoal;
+    padding: 0.625rem 1.25rem;
+    border-radius: 9999px;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  &__product-cta-arrow {
+    transition: transform 0.25s ease;
+    display: inline-block;
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Inline Product Detail (in-page, text-focused — generousbranding style)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-nutr-detail {
+  padding-bottom: 4rem;
+
+  // ── Back button ────────────────────────────────────────────
+  &__back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: $f-sans;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $c-gray-500;
+    padding: 0;
+    margin-bottom: 2.5rem;
+    transition: color 0.2s ease;
+
+    &:hover { color: $c-charcoal; }
+  }
+
+  // ── Header: category + large name ─────────────────────────
+  &__header {
+    margin-bottom: 3rem;
+    border-bottom: 1px solid $c-gray-200;
+    padding-bottom: 3rem;
+
+    @include lg { margin-bottom: 4rem; padding-bottom: 4rem; }
+  }
+
+  &__category-tag {
+    font-family: $f-sans;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: $c-green;
+    margin-bottom: 1.25rem;
+  }
+
+  &__name {
+    font-family: $f-sans;
+    font-weight: 400;
+    font-size: clamp(3rem, 7vw, 7rem);
+    color: $c-charcoal;
+    line-height: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.22em;
+    overflow: hidden; // clip for yPercent reveal
+  }
+
+  &__name-word {
+    display: inline-block;
+    will-change: opacity, transform;
+    position: relative;
+  }
+
+  // Trademark <sup> inside the large product title
+  &__trademark {
+    font-size: 0.3em;       // relative to the clamp(3rem~7rem) h2
+    font-weight: 400;
+    vertical-align: super;
+    line-height: 1;
+    letter-spacing: 0;
+    margin-left: 0.1em;
+  }
+
+  // ── Top 2-col section (generousbranding s-text-rows style) ─
+  &__top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid $c-gray-200;
+
+    @include lg {
+      grid-template-columns: 1fr 2fr;
+      gap: 6rem;
+    }
+  }
+
+  &__top-left { }
+
+  &__tagline {
+    font-family: $f-sans;
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    font-weight: 400;
+    color: $c-charcoal;
+    line-height: 1.35;
+    margin-bottom: 2rem;
+  }
+
+  &__meta-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid $c-gray-200;
+  }
+
+  &__meta-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid $c-gray-100;
+  }
+
+  &__meta-key {
+    font-family: $f-sans;
+    font-size: 0.8125rem;
+    color: $c-gray-400;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+  }
+
+  &__meta-val {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-charcoal;
+    font-weight: 500;
+    text-align: right;
+  }
+
+  &__top-right { }
+
+  &__overview-text {
+    font-family: $f-sans;
+    font-size: 1rem;
+    color: $c-charcoal;
+    line-height: 1.75;
+
+    @include md { font-size: 1.0625rem; }
+  }
+
+  // ── Section label ──────────────────────────────────────────
+  &__section-label {
+    display: block;
+    font-family: $f-sans;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: $c-gray-400;
+    margin-bottom: 1.5rem;
+  }
+
+  // ── Key Benefits grid ──────────────────────────────────────
+  &__benefits {
+    margin-bottom: 4rem;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid $c-gray-200;
+  }
+
+  &__benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem 3rem;
+
+    @include md { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  &__benefit {
+    border-top: 1px solid $c-gray-200;
+    padding-top: 1.25rem;
+  }
+
+  &__benefit-title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: 1rem;
+    color: $c-charcoal;
+    margin-bottom: 0.5rem;
+  }
+
+  &__benefit-desc {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-500;
+    line-height: 1.65;
+  }
+
+  // ── Sub-products list (with PDF buttons) ───────────────────
+  &__subproducts {
+    // no extra margin — last section
+  }
+
+  &__subproducts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  &__subproduct {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid $c-gray-200;
+
+    &:last-child {
+      border-bottom: 1px solid $c-gray-200;
+    }
+  }
+
+  &__subproduct-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__subproduct-name {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: 1rem;
+    color: $c-charcoal;
+    margin-bottom: 0.2rem;
+  }
+
+  &__subproduct-focus {
+    font-family: $f-sans;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $c-green;
+    margin-bottom: 0.5rem;
+  }
+
+  &__subproduct-desc {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-500;
+    line-height: 1.6;
+  }
+
+  &__pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 0.125rem;
+    font-family: $f-sans;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $c-charcoal;
+    border: 1px solid $c-gray-300;
+    padding: 0.5rem 0.875rem;
+    border-radius: 9999px;
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: $c-charcoal;
+      border-color: $c-charcoal;
+      color: $c-white;
+    }
+  }
+
+  &__pdf-icon {
+    display: inline-block;
+    transition: transform 0.25s ease;
+
+    .es-nutr-detail__pdf-btn:hover & {
+      transform: translateY(2px);
+    }
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Nutrition Single Product Page — /nutrition/[slug]
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-nutr-single {
+
+  // ── Top content section (2-col) ────────────────────────────
+  &__top {
+    background-color: $c-white;
+    padding: 5rem 0;
+
+    @include md { padding: 7rem 0; }
+  }
+
+  &__top-inner {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+
+    @include lg {
+      grid-template-columns: 1fr 1.6fr;
+      gap: 6rem;
+    }
+  }
+
+  // Left: category, name, meta specs
+  &__left { }
+
+  &__category {
+    @include label-text($c-green);
+    display: block;
+    margin-bottom: 1.25rem;
+  }
+
+  &__name {
+    font-family: $f-sans;
+    font-weight: 700;
+    font-size: clamp(2rem, 4.5vw, 3.75rem);
+    color: $c-charcoal;
+    line-height: 1.05;
+    margin-bottom: 2.5rem;
+  }
+
+  &__specs {
+    border-top: 1px solid $c-gray-200;
+  }
+
+  &__spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.875rem 0;
+    border-bottom: 1px solid $c-gray-100;
+  }
+
+  &__spec-key {
+    font-family: $f-sans;
+    font-size: 0.8125rem;
+    color: $c-gray-400;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+  }
+
+  &__spec-val {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-charcoal;
+    font-weight: 500;
+    text-align: right;
+  }
+
+  // Right: overview description
+  &__right { }
+
+  &__overview-label {
+    @include label-text($c-gray-400);
+    display: block;
+    margin-bottom: 1.25rem;
+  }
+
+  &__overview-text {
+    font-family: $f-sans;
+    font-size: 1.125rem;
+    color: $c-charcoal;
+    line-height: 1.75;
+
+    @include md { font-size: 1.25rem; }
+  }
+
+  // ── Key Benefits section ───────────────────────────────────
+  &__benefits {
+    background-color: $c-white;
+    padding: 4rem 0 6rem;
+    border-top: 1px solid $c-gray-200;
+  }
+
+  &__benefits-inner { @include container; }
+
+  &__benefits-label {
+    @include label-text($c-green);
+    display: block;
+    margin-bottom: 2.5rem;
+  }
+
+  &__benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    @include md { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  &__benefit {
+    border-top: 1px solid $c-gray-200;
+    padding-top: 1.25rem;
+  }
+
+  &__benefit-title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: 1rem;
+    color: $c-charcoal;
+    margin-bottom: 0.5rem;
+
+    @include md { font-size: 1.125rem; }
+  }
+
+  &__benefit-desc {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-500;
+    line-height: 1.65;
+  }
+
+  // ── Sub-products section ───────────────────────────────────
+  &__subproducts {
+    background-color: $c-white;
+    padding: 0 0 6rem;
+    border-top: 1px solid $c-gray-200;
+  }
+
+  &__subproducts-inner { @include container; }
+
+  &__subproducts-label {
+    @include label-text($c-green);
+    display: block;
+    padding-top: 4rem;
+    margin-bottom: 2rem;
+  }
+
+  &__subproducts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  &__subproduct {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid $c-gray-200;
+
+    &:last-child {
+      border-bottom: 1px solid $c-gray-200;
+    }
+  }
+
+  &__subproduct-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__subproduct-name {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: 1rem;
+    color: $c-charcoal;
+    margin-bottom: 0.2rem;
+  }
+
+  &__subproduct-focus {
+    font-family: $f-sans;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $c-green;
+    margin-bottom: 0.5rem;
+  }
+
+  &__subproduct-desc {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-500;
+    line-height: 1.6;
+  }
+
+  &__pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 0.125rem;
+    font-family: $f-sans;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $c-charcoal;
+    border: 1px solid $c-gray-300;
+    padding: 0.5rem 0.875rem;
+    border-radius: 9999px;
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: $c-charcoal;
+      border-color: $c-charcoal;
+      color: $c-white;
+    }
+  }
+
+  &__pdf-icon {
+    display: inline-block;
+    transition: transform 0.25s ease;
+
+    .es-nutr-single__pdf-btn:hover & {
+      transform: translateY(2px);
+    }
+  }
+
+  // ── Dark back banner (no image) ────────────────────────────
+  &__back {
+    display: block;
+    background-color: $c-dark;
+    padding: 4rem 0;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+
+    &:hover { background-color: #1f1f1f; }
+  }
+
+  &__back-inner {
+    @include container;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__back-label {
+    font-family: $f-sans;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: $c-gray-500;
+  }
+
+  &__back-title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: clamp(1.75rem, 4vw, 3.5rem);
+    color: $c-white;
+    line-height: 1.1;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: gap 0.3s ease;
+
+    .es-nutr-single__back:hover & {
+      gap: 1.25rem;
+    }
+  }
+
+  &__back-arrow {
+    display: inline-block;
+    color: $c-green;
+    transition: transform 0.3s ease;
+
+    .es-nutr-single__back:hover & {
+      transform: translateX(-0.5rem);
+    }
+  }
+}

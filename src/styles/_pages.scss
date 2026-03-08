@@ -1,0 +1,154 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Earthstrong Canada — Misc Pages (Legal, Cookie, 404)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ━━ Legal / Cookie Policy ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-legal {
+  padding-top: 8rem;
+  @include section-padding;
+  background-color: $c-white;
+
+  @include md { padding-top: 10rem; }
+
+  &__wrap {
+    max-width: 48rem;
+  }
+
+  &__title {
+    font-family: $f-sans;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: $c-charcoal;
+    line-height: 1.1;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid $c-gray-200;
+  }
+
+  &__intro {
+    font-family: $f-sans;
+    font-size: 1rem;
+    color: $c-gray-500;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  &__body {
+    font-family: $f-sans;
+    font-size: 1rem;
+    color: $c-charcoal;
+    line-height: 1.7;
+
+    p {
+      margin-bottom: 1.25rem;
+      color: $c-gray-500;
+    }
+
+    strong {
+      color: $c-charcoal;
+      font-weight: 600;
+    }
+  }
+
+  &__heading {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: $c-charcoal;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid $c-gray-100;
+
+    &:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+  }
+
+  &__link {
+    color: $c-green;
+    transition: text-decoration 0.2s;
+
+    &:hover { text-decoration: underline; }
+  }
+
+  // Cookie policy specifics
+  &__cookie-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  &__cookie-item {
+    background-color: $c-cream;
+    padding: 1.25rem 1.5rem;
+
+    h3 {
+      font-family: $f-sans;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: $c-charcoal;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-family: $f-sans;
+      font-size: 0.875rem;
+      color: $c-gray-500;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+  }
+}
+
+// ━━ 404 Not Found ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-not-found {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $c-white;
+  @include section-padding;
+
+  &__inner {
+    text-align: center;
+    max-width: 32rem;
+  }
+
+  &__tag {
+    @include label-text($c-orange);
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  &__title {
+    font-family: $f-sans;
+    font-weight: 700;
+    font-size: clamp(4rem, 15vw, 10rem);
+    color: $c-charcoal;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  &__desc {
+    font-family: $f-sans;
+    font-size: 1rem;
+    color: $c-gray-500;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+
+  &__cta {
+    @include pill-btn;
+    border: 1px solid $c-charcoal;
+    color: $c-charcoal;
+
+    &:hover {
+      background-color: $c-charcoal;
+      color: $c-white;
+    }
+  }
+}

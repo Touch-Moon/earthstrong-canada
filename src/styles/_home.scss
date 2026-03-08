@@ -1,0 +1,470 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Earthstrong Canada — Homepage Sections
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ━━ HeroSlider ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: $c-dark;
+
+  // ── Media layers (GSAP-controlled) ────────────────────────
+  &__media {
+    position: absolute;
+    inset: 0;
+    opacity: 0; // GSAP animates this
+
+    img { object-fit: cover; }
+  }
+
+  // ── Gradient overlay ──────────────────────────────────────
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.2),
+      transparent
+    );
+    z-index: 10;
+  }
+
+  // ── Slide content container ───────────────────────────────
+  &__content {
+    position: absolute;
+    z-index: 20;
+    // bottom / left / right / padding set via inline styles
+  }
+
+  &__content-inner {
+    max-width: 56rem; // max-w-4xl
+  }
+
+  // ── Subtitle (GSAP target) ────────────────────────────────
+  &__subtitle {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $c-gray-300;
+    margin-bottom: 1rem;
+    opacity: 0; // GSAP initial
+  }
+
+  // ── Title ─────────────────────────────────────────────────
+  &__title {
+    font-family: $f-sans;
+    font-weight: 300;
+    color: $c-white;
+    line-height: 0.95;
+    font-size: clamp(2.25rem, 7.5vw, 7.5rem);
+  }
+
+  // ── Title word (GSAP target) ──────────────────────────────
+  &__word {
+    display: inline-block;
+    margin-right: 0.25em;
+    will-change: opacity, transform;
+    opacity: 0; // GSAP animates this — keeps non-active slides hidden
+  }
+
+  // ── Dot pagination container ──────────────────────────────
+  &__dots {
+    position: absolute;
+    z-index: 20;
+    // bottom / left set via inline styles
+  }
+
+  &__dots-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  // ── Individual dot button (GSAP target) ───────────────────
+  // Inactive = 10×10 circle, Active = 48×10 pill (CSS transition controls width)
+  &__dot {
+    width: 10px;            // CSS --active 클래스가 48px으로 확장
+    height: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 9999px;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    opacity: 0;             // GSAP intro에서 등장
+    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // 활성 슬라이드 dot: 10px 원형 → 48px 필 확장
+  &__dot--active {
+    width: 48px;
+  }
+
+  // 트랙 + fill 컨테이너 (overflow:hidden으로 fill을 클립)
+  &__dot-track {
+    position: relative;
+    width: 100%;
+    height: 10px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.4);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  // 채워지는 진행 바 (GSAP scaleX 0→1 애니메이션)
+  &__dot-fill {
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: $c-white;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  // ── Scroll badge wrapper (GSAP target) ───────────────────
+  &__badge {
+    position: absolute;
+    z-index: 20;
+    opacity: 0; // GSAP initial
+    // bottom / right set via inline styles
+  }
+}
+
+// ━━ Manifesto Section ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-manifesto {
+  @include section-padding;
+  background-color: $c-white;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+
+  &__inner {
+    @include container;
+  }
+
+  &__text-wrap {
+    max-width: 64rem; // max-w-5xl
+  }
+
+  // Each line wrapper
+  &__line {
+    margin-bottom: 0.25rem;
+  }
+
+  &__line-text {
+    display: block;
+    font-family: $f-sans;
+    font-weight: 700;
+    color: $c-charcoal;
+    line-height: 1.25;
+    font-size: clamp(1.875rem, 5vw, 4.5rem); // text-3xl → text-7xl
+  }
+
+  &__sub {
+    margin-top: 2.5rem;
+    max-width: 42rem;
+  }
+
+  &__sub-text {
+    font-family: $f-sans;
+    font-size: 1rem;
+    color: $c-gray-500;
+    line-height: 1.6;
+
+    @include md { font-size: 1.125rem; }
+  }
+
+  &__cta {
+    margin-top: 2.5rem;
+  }
+
+  &__cta-link {
+    @include pill-btn;
+    border: 1px solid $c-charcoal;
+    color: $c-charcoal;
+
+    &:hover {
+      background-color: $c-charcoal;
+      color: $c-white;
+    }
+  }
+}
+
+// ━━ Featured Product ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-featured {
+  @include section-padding;
+  background-color: $c-white;
+
+  &__inner {
+    @include container;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+
+    @include lg {
+      flex-direction: row;
+      gap: 4rem;
+    }
+  }
+
+  &__text {
+    width: 100%;
+
+    @include lg { width: 40%; flex-shrink: 0; }
+  }
+
+  &__tag {
+    @include label-text($c-green);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  &__link {
+    display: block;
+  }
+
+  &__title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: clamp(2.25rem, 4vw, 3.75rem);
+    color: $c-charcoal;
+    line-height: 1.1;
+    transition: color 0.3s ease;
+
+    &:hover { color: $c-green; }
+  }
+
+  &__arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+
+    .es-featured__link:hover & {
+      transform: translateX(0.5rem);
+    }
+  }
+
+  &__desc {
+    margin-top: 1.5rem;
+    font-family: $f-sans;
+    font-size: 1rem;
+    color: $c-gray-600;
+    line-height: 1.6;
+
+    @include md { font-size: 1.125rem; }
+  }
+
+  &__note {
+    margin-top: 1rem;
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-500;
+    line-height: 1.6;
+  }
+
+  &__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $c-green;
+    transition: gap 0.3s ease;
+
+    &:hover { gap: 1rem; }
+  }
+
+  &__img-wrap {
+    width: 100%;
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+
+    @include lg { width: 60%; }
+
+    img {
+      object-fit: cover;
+      transition: transform 0.7s ease;
+
+      &:hover { transform: scale(1.05); }
+    }
+  }
+}
+
+// ━━ Product Grid (2-col) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-product-grid {
+  @include section-padding;
+  background-color: $c-white;
+
+  &__inner { @include container; }
+
+  &__list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+    }
+  }
+
+  &__card {
+    display: block;
+
+    &:hover .es-product-grid__title { color: $c-green; }
+    &:hover .es-product-grid__thumb img { transform: scale(1.05); }
+    &:hover .es-product-grid__arrow { transform: translateX(0.5rem); }
+  }
+
+  &__thumb {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+
+    img { object-fit: cover; transition: transform 0.5s ease; }
+  }
+
+  &__title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.5vw, 1.875rem);
+    color: $c-charcoal;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: color 0.3s ease;
+  }
+
+  &__arrow {
+    transition: transform 0.3s ease;
+  }
+
+  &__desc {
+    margin-top: 0.75rem;
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-500;
+    line-height: 1.6;
+
+    @include md { font-size: 1rem; }
+  }
+}
+
+// ━━ Small Product Cards (3-col) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-small-cards {
+  padding-bottom: 5rem;
+  background-color: $c-white;
+
+  @include md { padding-bottom: 8rem; }
+
+  &__inner { @include container; }
+
+  &__list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    @include sm  { grid-template-columns: repeat(2, 1fr); }
+    @include lg  { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  }
+
+  &__item {
+    display: block;
+
+    &:hover .es-small-cards__title { color: $c-green; }
+    &:hover .es-small-cards__thumb img { transform: scale(1.05); }
+    &:hover .es-small-cards__arrow { transform: translateX(0.25rem); }
+  }
+
+  &__thumb {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    margin-bottom: 1rem;
+
+    img { object-fit: cover; transition: transform 0.5s ease; }
+  }
+
+  &__title {
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: $c-charcoal;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+  }
+
+  &__arrow {
+    font-size: 0.875rem;
+    transition: transform 0.3s ease;
+  }
+
+  &__desc {
+    margin-top: 0.5rem;
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-500;
+    line-height: 1.6;
+  }
+}
+
+// ━━ Partner Marquee ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-partner-marquee {
+  background-color: $c-dark;
+  padding: 4rem 0;
+  overflow: hidden;
+
+  &__track-wrap {
+    position: relative;
+    display: flex;
+  }
+
+  &__track {
+    display: flex;
+    flex-shrink: 0;
+    animation: es-marquee 35s linear infinite;
+
+    .es-partner-marquee:hover & {
+      animation-play-state: paused;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    font-family: $f-sans;
+    font-weight: 600;
+    font-size: clamp(1.5rem, 3.5vw, 3rem);
+    color: $c-white;
+    padding: 0 2rem;
+
+    @include md { padding: 0 3rem; }
+  }
+
+  &__sep {
+    color: $c-gray-600;
+    font-weight: 400;
+    margin-left: 2rem;
+
+    @include md { margin-left: 3rem; }
+  }
+}

@@ -1,0 +1,380 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Earthstrong Canada — Header / Footer / PageLoader
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ━━ Page Loader ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-loader {
+  &__bg {
+    position: fixed;
+    inset: 0;
+    background-color: $c-white;
+    z-index: 99;
+  }
+
+  &__mask {
+    position: fixed;
+    inset: 0;
+    background-color: $c-dark;
+    z-index: 100;
+    transform-origin: top center;
+  }
+}
+
+// ━━ Header ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Height: 138px (tall) → 58px (scrolled), controlled via inline style
+.es-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+
+  // White background layer — slides in on scroll
+  &__bg {
+    position: absolute;
+    inset: 0;
+    background-color: $c-white;
+    z-index: 1;
+    transition: transform 0.6s $ease-smooth;
+
+    &--hidden {
+      transform: translate3d(0, -100%, 0);
+    }
+
+    &--visible {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  // Inner flex row
+  &__inner {
+    @include container;
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 2;
+  }
+
+  // Logo link
+  &__logo {
+    flex-shrink: 0;
+
+    img {
+      height: 2rem;
+      width: auto;
+      object-fit: contain;
+      transition: filter 0.6s $ease-smooth;
+    }
+
+    &--dark img  { filter: none; }
+    &--light img { filter: brightness(0) invert(1); }
+  }
+
+  // Desktop navigation (≥ lg)
+  &__nav {
+    display: none;
+
+    @include lg {
+      display: flex;
+      align-items: center;
+      gap: 53px;
+    }
+  }
+
+  &__nav-link {
+    position: relative;
+    font-family: $f-sans;
+    font-size: 12.5px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    line-height: 1;
+    transition: color 0.45s $ease-smooth;
+
+    // Underline bar
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: calc(100% + 0.3em);
+      width: 100%;
+      height: 1px;
+      background-color: currentColor;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.2s $ease-in-out;
+    }
+
+    &:hover::after,
+    &--active::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+
+  // Hamburger button (< lg)
+  &__hamburger {
+    display: flex;
+    position: relative;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+
+    @include lg { display: none; }
+  }
+
+  &__ham-open,
+  &__ham-close {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+  }
+
+  &__ham-open {
+    flex-direction: column;
+    gap: 5px;
+
+    span {
+      display: block;
+      width: 24px;
+      height: 3px;
+      transition: background-color 0.6s $ease-smooth;
+    }
+  }
+
+  &__ham-close span {
+    position: absolute;
+    width: 30px;
+    height: 3px;
+    background-color: $c-dark;
+  }
+}
+
+// ━━ Mobile Menu Overlay ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background-color: $c-white;
+  overflow: hidden;
+  transition:
+    clip-path 0.6s $ease-expo,
+    opacity 0.6s linear;
+
+  @include lg { display: none; }
+
+  &--open {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &--closed {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__nav {
+    @include container;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 138px;
+  }
+
+  &__link {
+    display: block;
+    font-family: $f-sans;
+    font-size: clamp(36px, 6vw, 60px);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: $c-dark;
+    line-height: 1.1;
+    margin-top: 0.25em;
+    transition:
+      transform 0.8s $ease-soft,
+      opacity 0.2s linear;
+  }
+}
+
+// ━━ Footer ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.es-footer {
+  background-color: $c-dark;
+  color: $c-white;
+
+  &__inner {
+    @include container;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+
+    @include md {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+
+    @include md { grid-template-columns: repeat(2, 1fr); }
+    @include lg { grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+  }
+
+  // Col 1: Brand
+  &__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__logo img {
+    height: 2rem;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+
+  &__tagline {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.5rem;
+  }
+
+  &__desc {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-500;
+    margin-top: 0.5rem;
+    line-height: 1.6;
+  }
+
+  // Col heading
+  &__col-title {
+    font-family: $f-sans;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $c-gray-500;
+    font-weight: 400;
+    margin-bottom: 1.25rem;
+  }
+
+  // Col 2: Nav
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  &__nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-300;
+    transition: color 0.2s ease;
+
+    &:hover { color: $c-white; }
+
+    &__arrow {
+      color: $c-gray-600;
+      transition: color 0.2s ease;
+
+      .es-footer__nav-link:hover & {
+        color: $c-green;
+      }
+    }
+  }
+
+  // Col 3: Contact
+  &__email {
+    display: block;
+    font-family: $f-sans;
+    font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+    color: $c-white;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+    transition: color 0.2s ease;
+
+    &:hover { color: $c-white; }
+  }
+
+  &__phone {
+    display: block;
+    font-family: $f-sans;
+    color: $c-gray-400;
+    transition: color 0.2s ease;
+
+    &:hover { color: $c-white; }
+  }
+
+  // Col 4: Social + ScrollUp
+  &__col4 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    @include lg { align-items: flex-end; }
+  }
+
+  &__social-placeholder {
+    font-family: $f-sans;
+    font-size: 0.875rem;
+    color: $c-gray-500;
+  }
+
+  &__badge {
+    margin-top: 2rem;
+
+    @include lg { margin-top: 0; }
+  }
+
+  // Bottom bar
+  &__bottom {
+    border-top: 1px solid $c-gray-800;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    @include md { flex-direction: row; }
+  }
+
+  &__copy {
+    font-family: $f-sans;
+    font-size: 0.75rem;
+    color: $c-gray-600;
+  }
+
+  &__legal {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  &__legal-link {
+    font-family: $f-sans;
+    font-size: 0.75rem;
+    color: $c-gray-600;
+    transition: color 0.2s ease;
+
+    &:hover { color: $c-gray-400; }
+  }
+}
