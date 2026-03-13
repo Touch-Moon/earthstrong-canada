@@ -88,9 +88,6 @@ export default function RootLayout({
             }),
           }}
         />
-        <a href="#main-content" className="es-skip-link">
-          Skip to main content
-        </a>
         <LenisProvider>
           <PageLoader />
           <Header />
