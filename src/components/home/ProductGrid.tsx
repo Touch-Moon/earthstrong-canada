@@ -33,7 +33,7 @@ export default function ProductGrid() {
       const cards = gridRef.current.querySelectorAll<HTMLElement>(".es-product-grid__card");
       if (!cards.length) return;
 
-      // stagger 0.15s fade-up — 원본 카드 진입 애니메이션
+      // stagger 0.15s fade-up — original card entrance animation
       gsap.fromTo(
         cards,
         { opacity: 0, y: 60 },

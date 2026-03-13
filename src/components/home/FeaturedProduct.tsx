@@ -15,7 +15,7 @@ export default function FeaturedProduct() {
     () => {
       if (!sectionRef.current) return;
 
-      // 텍스트 영역 fade-up
+      // Text area fade-up
       if (textRef.current) {
         gsap.fromTo(
           textRef.current,
@@ -33,7 +33,7 @@ export default function FeaturedProduct() {
         );
       }
 
-      // 이미지 영역 fade-up (0.15s 딜레이)
+      // Image area fade-up (0.15s delay)
       if (imageWrapRef.current) {
         gsap.fromTo(
           imageWrapRef.current,

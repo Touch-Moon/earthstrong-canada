@@ -1,10 +1,10 @@
 import { team } from "@/data/team";
 import TeamMemberCard from "./TeamMember";
 
-/* ━━ s-people-grid 재현 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   - flex-wrap 레이아웃 (grid가 아닌 flex)
-   - 각 카드: 이미지 먼저 → 이름/직함 아래
-   - hover 시 bio overlay: clip-path 리빌 (s-people-grid 동일)
+/* ━━ Reproducing s-people-grid ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   - flex-wrap layout (flex, not grid)
+   - Each card: image first -> name/title below
+   - On hover bio overlay: clip-path reveal (same as s-people-grid)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 export default function TeamProfiles() {
   return (

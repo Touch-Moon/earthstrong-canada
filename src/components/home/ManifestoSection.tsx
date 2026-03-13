@@ -30,7 +30,7 @@ export default function ManifestoSection() {
     () => {
       if (!sectionRef.current) return;
 
-      // 스포트라이트 업데이트: activeIndex 기준으로 모든 라인 opacity 재계산
+      // Spotlight update: recalculate all line opacities based on activeIndex
       const updateSpotlight = (activeIndex: number) => {
         lineRefs.current.forEach((el, i) => {
           if (!el) return;
@@ -38,12 +38,12 @@ export default function ManifestoSection() {
         });
       };
 
-      // 초기 상태: 모든 라인 dim (0.06)
+      // Initial state: all lines dimmed (0.06)
       lineRefs.current.forEach((el) => {
         if (el) el.style.opacity = "0.06";
       });
 
-      // 각 라인마다 ScrollTrigger — 라인이 뷰포트 65% 지점에 진입 시 스포트라이트 이동
+      // ScrollTrigger per line — spotlight moves when line enters viewport at 65%
       lineRefs.current.forEach((el, index) => {
         if (!el) return;
         ScrollTrigger.create({
@@ -54,7 +54,7 @@ export default function ManifestoSection() {
         });
       });
 
-      // 서브텍스트 fade-up
+      // Subtext fade-up
       if (subtextRef.current) {
         gsap.fromTo(
           subtextRef.current,
@@ -72,7 +72,7 @@ export default function ManifestoSection() {
         );
       }
 
-      // CTA 버튼 fade-up
+      // CTA button fade-up
       if (ctaRef.current) {
         gsap.fromTo(
           ctaRef.current,
@@ -106,7 +106,7 @@ export default function ManifestoSection() {
                 className="es-scroll-line es-manifesto__line-text"
                 style={{
                   opacity: 0.06,
-                  // 원본: opacity 1.2s cubic-bezier(0.23, 1, 0.32, 1)
+                  // Original: opacity 1.2s cubic-bezier(0.23, 1, 0.32, 1)
                   transition: "opacity 1.2s cubic-bezier(0.23, 1, 0.32, 1)",
                   willChange: "opacity",
                 }}

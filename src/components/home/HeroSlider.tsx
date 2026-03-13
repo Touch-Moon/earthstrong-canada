@@ -6,7 +6,7 @@ import { gsap } from "@/lib/gsap-config";
 import Image from "next/image";
 import ScrollBadge from "./ScrollBadge";
 
-/* ━━ 슬라이드 데이터 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ━━ Slide Data ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const slides = [
   {
     image: "/images/hero/homepage-hero.webp",
@@ -25,9 +25,9 @@ const slides = [
   },
 ];
 
-const INTERVAL = 5000; // ms — 도트 진행 바와 자동 전환 공용
+const INTERVAL = 5000; // ms — shared by dot progress bar and auto-advance
 
-/* ━━ 메인 컴포넌트 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ━━ Main Component ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 export default function HeroSlider() {
   const sectionRef   = useRef<HTMLElement>(null);
   const mediaRefs    = useRef<(HTMLDivElement | null)[]>([]);
@@ -41,19 +41,19 @@ export default function HeroSlider() {
   const isAnimatingRef  = useRef(false);
   const progressTwRef   = useRef<gsap.core.Tween | null>(null);
 
-  /* ── forward refs (stale closure 방지) ──────────────────── */
+  /* ── forward refs (prevent stale closures) ──────────────── */
   const goToRef          = useRef<(index: number) => void>(() => {});
   const startProgressRef = useRef<(index: number) => void>(() => {});
 
-  /* ── 도트 진행 바 시작 ──────────────────────────────────────
-     index번 슬라이드의 fill을 INTERVAL ms 동안 scaleX 0→1 로 채우고
-     완료되면 다음 슬라이드로 자동 전환.
+  /* ── Start dot progress bar ─────────────────────────────────
+     Fills the dot for slide [index] from scaleX 0→1 over INTERVAL ms,
+     then auto-advances to the next slide on completion.
   ────────────────────────────────────────────────────────── */
   const startProgress = useCallback((index: number) => {
-    // 기존 진행 중인 tween 종료
+    // Kill any in-progress tween
     if (progressTwRef.current) progressTwRef.current.kill();
 
-    // 모든 fill 리셋
+    // Reset all fills
     dotFillRefs.current.forEach((fill) => {
       if (fill) gsap.set(fill, { scaleX: 0 });
     });
@@ -78,19 +78,19 @@ export default function HeroSlider() {
 
   startProgressRef.current = startProgress;
 
-  /* ── 슬라이드 전환 ──────────────────────────────────────────
-     원본 (generousbranding.com) 타이밍 추출:
-     t=0.0  나가는 이미지: opacity 1→0.2, xPercent 0→-10 (1.3s, power2.inOut)
-     t=0.0  나가는 텍스트: opacity→0 (0.3s)
-     t=0.1  들어오는 이미지: xPercent 100→0 (1.2s, power2.inOut)
-     t=0.8  들어오는 단어: yPercent 100→0, opacity 0→1 (1s, stagger 0.08)
-     t=1.2  들어오는 서브타이틀: opacity/yPercent (0.5s)
+  /* ── Slide transition ───────────────────────────────────────
+     Timing extracted from the original (generousbranding.com):
+     t=0.0  Outgoing image: opacity 1→0.2, xPercent 0→-10 (1.3s, power2.inOut)
+     t=0.0  Outgoing text: opacity→0 (0.3s)
+     t=0.1  Incoming image: xPercent 100→0 (1.2s, power2.inOut)
+     t=0.8  Incoming words: yPercent 100→0, opacity 0→1 (1s, stagger 0.08)
+     t=1.2  Incoming subtitle: opacity/yPercent (0.5s)
   ────────────────────────────────────────────────────────── */
   const goTo = useCallback((index: number) => {
     if (isAnimatingRef.current || index === currentRef.current) return;
     isAnimatingRef.current = true;
 
-    // 진행 bar 일시 중지 (전환 중에는 멈춤)
+    // Pause progress bar (stop during transition)
     if (progressTwRef.current) progressTwRef.current.kill();
 
     const oldIndex = currentRef.current;
@@ -100,21 +100,21 @@ export default function HeroSlider() {
       onComplete: () => {
         isAnimatingRef.current = false;
 
-        // 나간 슬라이드 정리
+        // Clean up the outgoing slide
         const oldMedia = mediaRefs.current[oldIndex];
         if (oldMedia) gsap.set(oldMedia, { opacity: 0, xPercent: 0, zIndex: 1 });
 
-        // 들어온 슬라이드 z-index 정규화
+        // Normalize z-index of the incoming slide
         const newMedia = mediaRefs.current[index];
         if (newMedia) gsap.set(newMedia, { zIndex: 2 });
 
         setCurrent(index);
-        // 새 슬라이드의 진행 바 시작
+        // Start progress bar for the new slide
         startProgressRef.current(index);
       },
     });
 
-    // ── 나가는 슬라이드 ──
+    // ── Outgoing slide ──
     const oldMedia = mediaRefs.current[oldIndex];
     if (oldMedia) {
       tl.fromTo(
@@ -141,7 +141,7 @@ export default function HeroSlider() {
       }
     }
 
-    // ── 들어오는 슬라이드 ──
+    // ── Incoming slide ──
     const newMedia = mediaRefs.current[index];
     if (newMedia) {
       gsap.set(newMedia, { opacity: 1, xPercent: 100, zIndex: 3 });
@@ -174,24 +174,24 @@ export default function HeroSlider() {
 
   goToRef.current = goTo;
 
-  /* ── 인트로 타임라인 (페이지 로드 1회) ─────────────────────── */
+  /* ── Intro timeline (runs once on page load) ────────────── */
   useGSAP(
     () => {
       if (!sectionRef.current) return;
 
-      // Fast Refresh / Strict Mode 재마운트 시 플래그 초기화
+      // Reset flags on Fast Refresh / Strict Mode remount
       isAnimatingRef.current = false;
       if (progressTwRef.current) progressTwRef.current.kill();
 
       const tl = gsap.timeline();
 
-      // 1. 첫 슬라이드 이미지 페이드인
+      // 1. Fade in first slide image
       const firstMedia = mediaRefs.current[0];
       if (firstMedia) {
         tl.to(firstMedia, { opacity: 1, duration: 1.35, ease: "none" }, 0);
       }
 
-      // 2. 타이틀 단어 아래→위 리빌
+      // 2. Title words reveal bottom→top
       const firstContent = contentRefs.current[0];
       if (firstContent) {
         const words    = firstContent.querySelectorAll<HTMLElement>(".es-hero__word");
@@ -215,12 +215,12 @@ export default function HeroSlider() {
         }
       }
 
-      // 3. 스크롤 배지 등장
+      // 3. Scroll badge entrance
       if (badgeRef.current) {
         tl.to(badgeRef.current, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.5);
       }
 
-      // 4. 도트 순차 등장
+      // 4. Dots staggered entrance
       if (dotsRef.current) {
         const dots = dotsRef.current.querySelectorAll<HTMLElement>(".es-hero__dot");
         if (dots.length) {
@@ -233,16 +233,16 @@ export default function HeroSlider() {
         }
       }
 
-      // 5. 인트로 완료 후 첫 슬라이드 진행 바 시작
+      // 5. Start first slide progress bar after intro completes
       tl.call(() => startProgressRef.current(0), [], ">");
     },
     { scope: sectionRef }
   );
 
-  /* ━━ 렌더링 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  /* ━━ Render ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   return (
     <section ref={sectionRef} className="es-hero">
-      {/* ── 슬라이드 이미지 레이어 ── */}
+      {/* ── Slide image layers ── */}
       {slides.map((slide, i) => (
         <div
           key={i}
@@ -254,16 +254,16 @@ export default function HeroSlider() {
             src={slide.image}
             alt={slide.title}
             fill
-            priority={i < 2}
+            priority={i === 0}
             sizes="100vw"
           />
         </div>
       ))}
 
-      {/* ── 어두운 그라디언트 오버레이 ── */}
+      {/* ── Dark gradient overlay ── */}
       <div className="es-hero__overlay" />
 
-      {/* ── 슬라이드별 텍스트 콘텐츠 ── */}
+      {/* ── Per-slide text content ── */}
       {slides.map((slide, i) => (
         <div
           key={i}
@@ -273,7 +273,7 @@ export default function HeroSlider() {
             bottom: 0,
             left: 0,
             right: 0,
-            // 도트와의 간격 확보 — 도트 bottom:36px + 충분한 여백
+            // Ensure spacing from dots — dots at bottom:36px + sufficient margin
             padding: "0 40px 110px",
             pointerEvents: i === current ? "auto" : "none",
           }}
@@ -298,21 +298,23 @@ export default function HeroSlider() {
         </div>
       ))}
 
-      {/* ── 도트 진행 바 페이지네이션 ── */}
+      {/* ── Dot progress bar pagination ── */}
       <div
         ref={dotsRef}
         className="es-hero__dots"
         style={{ bottom: "36px", left: "40px" }}
       >
-        <div className="es-hero__dots-row">
+        <div className="es-hero__dots-row" role="tablist" aria-label="Hero slides">
           {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
               className={`es-hero__dot${i === current ? " es-hero__dot--active" : ""}`}
-              aria-label={`Go to slide ${i + 1}`}
+              role="tab"
+              aria-selected={i === current}
+              aria-label={`Slide ${i + 1} of ${slides.length}`}
             >
-              {/* 트랙 (overflow:hidden) 안에 fill을 중첩 — 높이·라운드 완전 일치 */}
+              {/* Fill nested inside track (overflow:hidden) — height and rounding match exactly */}
               <span className="es-hero__dot-track">
                 <span
                   ref={(el) => { dotFillRefs.current[i] = el; }}
@@ -324,7 +326,7 @@ export default function HeroSlider() {
         </div>
       </div>
 
-      {/* ── 스크롤 배지 ── */}
+      {/* ── Scroll badge ── */}
       <div
         ref={badgeRef}
         className="es-hero__badge"

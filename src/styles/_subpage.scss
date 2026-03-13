@@ -3,9 +3,9 @@
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 // ━━ Subpage Marquee Title ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// generousbranding.com .s-marquee-title 재현:
-// 뷰포트 너비 전체를 채우는 대형 uppercase 텍스트
-// GSAP로 word-inner / word-ghost translateY(83% → 0)
+// Reproduces generousbranding.com .s-marquee-title:
+// Large uppercase text filling the full viewport width
+// GSAP reveals word-inner / word-ghost translateY(83% → 0)
 
 .es-marquee-title {
   height: 0.86em;
@@ -25,7 +25,7 @@
   animation: es-marquee-title var(--duration, 10s) linear infinite;
 }
 
-// 초기 숨김: GSAP가 translateY(0)으로 리빌
+// Initially hidden: GSAP reveals by animating to translateY(0)
 .es-word-inner,
 .es-word-ghost {
   transform: translateY(83%);

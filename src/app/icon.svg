@@ -1,11 +1,11 @@
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- 배경: brand-green -->
+  <!-- Background: brand-green -->
   <rect width="32" height="32" rx="6" fill="#2D5A27"/>
-  <!-- 잎/새싹 심볼 (Earthstrong 스프라우트 스타일) -->
-  <!-- 줄기 -->
+  <!-- Leaf/sprout symbol (Earthstrong sprout style) -->
+  <!-- Stem -->
   <line x1="16" y1="26" x2="16" y2="12" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
-  <!-- 왼쪽 잎 -->
+  <!-- Left leaf -->
   <path d="M16 18 C16 18 10 16 9 10 C9 10 15 10 16 18Z" fill="#ffffff"/>
-  <!-- 오른쪽 잎 -->
+  <!-- Right leaf -->
   <path d="M16 14 C16 14 22 12 23 6 C23 6 17 6 16 14Z" fill="#ffffff"/>
 </svg>

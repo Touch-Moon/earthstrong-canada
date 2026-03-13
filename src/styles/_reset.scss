@@ -70,6 +70,16 @@ fieldset {
   padding: 0;
 }
 
+// ── Focus indicators (keyboard navigation) ─────────────────
+:focus-visible {
+  outline: 2px solid $c-orange;
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
 // Fill-mode for Next.js Image component
 span[data-next-image-fallback] {
   position: unset !important;

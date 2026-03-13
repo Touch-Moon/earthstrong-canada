@@ -4,11 +4,11 @@ import { useRef, useEffect } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap-config";
 import SubpageHero from "@/components/shared/SubpageHero";
 
-/* ━━ About 페이지 인트로 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   VisionHero와 동일 구조:
-   ① SubpageHero (마키 타이틀)
-   ② b-scroll-text 라인 리빌 (bg-white, container-main pb-20 md:pb-32)
-   overlay color = #ffffff (white bg와 일치)
+/* ━━ About page intro ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Same structure as VisionHero:
+   1) SubpageHero (marquee title)
+   2) b-scroll-text line reveal (bg-white, container-main pb-20 md:pb-32)
+   overlay color = #ffffff (matches white bg)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const missionLines = [
   "Earthstrong Canada was",
@@ -55,10 +55,10 @@ export default function MissionStatement() {
 
   return (
     <>
-      {/* ── 마키 타이틀 ── */}
+      {/* ── Marquee title ── */}
       <SubpageHero title="About" duration={8} />
 
-      {/* ── b-scroll-text 미션 ── */}
+      {/* ── b-scroll-text mission ── */}
       <section className="es-mission">
         <div className="es-mission__inner">
           <div ref={textRef} className="es-mission__text-wrap">

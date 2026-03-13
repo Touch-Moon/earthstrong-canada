@@ -4,20 +4,20 @@ import { useRef, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { gsap } from "@/lib/gsap-config";
 
-/* ━━ 사이트 전체 페이지 로더 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   2레이어 마스크 시스템:
-     Layer 2 (z-[100]): 검은 마스크 — scaleY 커튼 애니메이션
-     Layer 1 (z-[99]):  흰 배경   — opacity 페이드
+/* ━━ Site-wide Page Loader ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   2-layer mask system:
+     Layer 2 (z-[100]): Black mask — scaleY curtain animation
+     Layer 1 (z-[99]):  White background — opacity fade
 
-   [초기 로드]
-     이미 완전히 덮인 상태에서 리빌만 실행 (HeroSlider와 타이밍 맞춤)
-     검은 마스크: scaleY 1→0 (1s, 커튼 올라감)
-     흰 배경: opacity 1→0 (0.6s, t=0.5 시작)
+   [Initial Load]
+     Already fully covered; only the reveal runs (timed with HeroSlider)
+     Black mask: scaleY 1→0 (1s, curtain rises)
+     White background: opacity 1→0 (0.6s, starts at t=0.5)
 
-   [페이지 전환]
-     1단계 - 덮기 (sudden black 방지): 흰 배경 페이드인 → 검은 마스크 아래로 내려옴
-     2단계 - 리빌: 검은 마스크 위로 올라감 → 흰 배경 페이드아웃
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+   [Page Transition]
+     Phase 1 - Cover (prevent sudden black flash): white bg fades in → black mask slides down
+     Phase 2 - Reveal: black mask slides up → white bg fades out
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 export default function PageLoader() {
   const maskRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
@@ -39,7 +39,7 @@ export default function PageLoader() {
     });
 
     if (isInitial) {
-      /* ── 초기 로드: 이미 덮인 상태 → 바로 리빌 ── */
+      /* ── Initial load: already covered → reveal immediately ── */
       gsap.set(mask, {
         display: "block",
         scaleY: 1,
@@ -47,14 +47,14 @@ export default function PageLoader() {
       });
       gsap.set(bg, { display: "block", opacity: 1 });
 
-      // 검은 마스크 위로 올라감 (커튼 열림)
+      // Black mask slides up (curtain opens)
       tl.to(mask, { scaleY: 0, duration: 1, ease: "power2.inOut" }, 0);
-      // 흰 배경 페이드아웃
+      // White background fades out
       tl.to(bg, { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0.5);
     } else {
-      /* ── 페이지 전환: 부드럽게 덮은 후 리빌 ── */
+      /* ── Page transition: smoothly cover then reveal ── */
 
-      // 1단계: 흰 배경 페이드인 + 검은 마스크 위에서 내려옴
+      // Phase 1: White background fades in + black mask slides down from top
       gsap.set(bg, { display: "block", opacity: 0 });
       gsap.set(mask, {
         display: "block",
@@ -62,14 +62,14 @@ export default function PageLoader() {
         transformOrigin: "top center",
       });
 
-      // 흰 배경: 빠르게 페이드인 (새 페이지 콘텐츠 가리기)
+      // White background: quick fade-in (hide new page content)
       tl.to(bg, { opacity: 1, duration: 0.25, ease: "none" }, 0);
-      // 검은 마스크: 위에서 아래로 내려옴 (0.1s 딜레이 — 흰 배경 먼저)
+      // Black mask: slides down from top (0.1s delay — white bg goes first)
       tl.to(mask, { scaleY: 1, duration: 0.45, ease: "power2.in" }, 0.1);
 
-      // 2단계: 검은 마스크 위로 올라감 (커튼 열림)
+      // Phase 2: Black mask slides up (curtain opens)
       tl.to(mask, { scaleY: 0, duration: 1, ease: "power2.inOut" }, 0.65);
-      // 흰 배경 페이드아웃
+      // White background fades out
       tl.to(bg, { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 1.15);
     }
   }, []);
@@ -84,13 +84,13 @@ export default function PageLoader() {
 
   return (
     <>
-      {/* Layer 1: 흰 배경 (낮은 z) — 페이드아웃으로 콘텐츠 노출 */}
+      {/* Layer 1: White background (lower z) — fades out to reveal content */}
       <div
         ref={bgRef}
         className="es-loader__bg"
         style={{ zIndex: 99 }}
       />
-      {/* Layer 2: 검은 마스크 (높은 z) — scaleY 커튼으로 흰 배경 노출 */}
+      {/* Layer 2: Black mask (higher z) — scaleY curtain reveals white background */}
       <div
         ref={maskRef}
         className="es-loader__mask"

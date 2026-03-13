@@ -37,7 +37,7 @@ export default function SmallProductCards() {
       const cards = gridRef.current.querySelectorAll<HTMLElement>(".es-small-cards__item");
       if (!cards.length) return;
 
-      // stagger 0.12s fade-up — 소형 카드 3열 순차 등장
+      // stagger 0.12s fade-up — small cards 3-column sequential entrance
       gsap.fromTo(
         cards,
         { opacity: 0, y: 60 },

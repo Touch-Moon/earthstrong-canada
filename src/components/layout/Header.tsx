@@ -1,43 +1,45 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { mainNavItems } from "@/data/navigation";
 
 /* ━━ Header ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   generousbranding.com 네비게이션 재현
-   ─ 높이: 138px (기본) → 58px (스크롤)
-   ─ 배경: 투명 + 흰 div가 위에서 slide-in (스크롤 시)
-   ─ 링크: 12.5px / letter-spacing 0.15em / uppercase
-           white(초기) → black(스크롤)
-   ─ hover: underline scaleX (right→left origin 전환) via CSS ::after
-   ─ 모바일: clip-path 오른쪽→전체 reveal / 60px 대형 링크
+   Replicates generousbranding.com navigation
+   ─ Height: 138px (default) → 58px (scrolled)
+   ─ Background: transparent + white div slides in from top (on scroll)
+   ─ Links: 12.5px / letter-spacing 0.15em / uppercase
+            white (initial) → black (scrolled)
+   ─ Hover: underline scaleX (right→left origin switch) via CSS ::after
+   ─ Mobile: clip-path right-edge→full-screen reveal / 60px large links
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  // 홈페이지만 다크 히어로 위에 투명 헤더 (흰 텍스트)
-  // 나머지 페이지는 처음부터 흰 배경 + 검은 텍스트
+  // Only the homepage has a transparent header over the dark hero (white text)
+  // All other pages start with a white background + black text
   const hasHero = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
-    // 페이지 전환 시 현재 스크롤 위치 즉시 반영
+    // Immediately reflect current scroll position on page transition
     setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [pathname]);
 
-  // 라우트 변경 시 메뉴 닫기
+  // Close menu on route change
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
 
-  // 메뉴 열릴 때 body scroll 잠금
+  // Lock body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
@@ -45,7 +47,36 @@ export default function Header() {
     };
   }, [menuOpen]);
 
-  // 헤더가 light 모드(흰 배경 + 검은 텍스트)인 조건
+  // Focus trap: keep Tab cycling within mobile menu when open
+  useEffect(() => {
+    if (!menuOpen || !menuRef.current) return;
+
+    const focusable = menuRef.current.querySelectorAll<HTMLElement>("a, button");
+    if (focusable.length) focusable[0].focus();
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        hamburgerRef.current?.focus();
+        return;
+      }
+      if (e.key !== "Tab" || !focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [menuOpen]);
+
+  // Condition for header light mode (white background + black text)
   const isLight = !hasHero || scrolled || menuOpen;
 
   return (
@@ -58,7 +89,7 @@ export default function Header() {
           transition: "height 0.6s cubic-bezier(0.19, 1, 0.22, 1)",
         }}
       >
-        {/* 흰 배경 — 스크롤 시 위에서 내려옴 */}
+        {/* White background — slides down from top on scroll */}
         <div
           className={`es-header__bg ${isLight ? "es-header__bg--visible" : "es-header__bg--hidden"}`}
           style={{
@@ -74,7 +105,7 @@ export default function Header() {
           className="es-header__inner"
           style={{ zIndex: 2 }}
         >
-          {/* 로고 */}
+          {/* Logo */}
           <Link href="/" className="es-header__logo">
             <Image
               src="/images/logo/earthstrong-logo.svg"
@@ -90,7 +121,7 @@ export default function Header() {
             />
           </Link>
 
-          {/* 데스크탑 Nav (≥lg) */}
+          {/* Desktop Nav (≥lg) */}
           <nav className="es-header__nav" style={{ gap: "53px" }}>
             {mainNavItems.map((item) => {
               const isActive =
@@ -118,14 +149,16 @@ export default function Header() {
             })}
           </nav>
 
-          {/* 햄버거 버튼 (<lg) */}
+          {/* Hamburger button (<lg) */}
           <button
+            ref={hamburgerRef}
             onClick={() => setMenuOpen(!menuOpen)}
             className="es-header__hamburger"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
             style={{ position: "relative", width: "48px", height: "48px" }}
           >
-            {/* 열기: 2줄 */}
+            {/* Open state: 2 lines */}
             <span
               className="es-header__ham-open"
               style={{
@@ -154,7 +187,7 @@ export default function Header() {
                 />
               ))}
             </span>
-            {/* 닫기: X */}
+            {/* Close state: X */}
             <span
               className="es-header__ham-close"
               style={{
@@ -185,8 +218,9 @@ export default function Header() {
       </header>
 
       {/* ── MOBILE MENU OVERLAY ─────────────────────────────────── */}
-      {/* clip-path: 오른쪽 끝에서 전체 화면으로 reveal */}
+      {/* clip-path: reveals from right edge to full screen */}
       <div
+        ref={menuRef}
         className={`es-mobile-menu ${menuOpen ? "es-mobile-menu--open" : "es-mobile-menu--closed"}`}
         style={{
           clipPath: menuOpen

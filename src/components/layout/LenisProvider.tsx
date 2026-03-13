@@ -5,10 +5,10 @@ import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "@/lib/gsap-config";
 
 /* ━━ LenisProvider ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   Lenis 스무스 스크롤 초기화 + GSAP ScrollTrigger 연동:
-   - lenis.on('scroll', ScrollTrigger.update) → 스크롤 위치 동기화
-   - gsap.ticker.add() → RAF 루프 통합
-   - gsap.ticker.lagSmoothing(0) → 탭 전환 시 점프 방지
+   Lenis smooth scroll initialization + GSAP ScrollTrigger integration:
+   - lenis.on('scroll', ScrollTrigger.update) → Sync scroll position
+   - gsap.ticker.add() → Unified RAF loop
+   - gsap.ticker.lagSmoothing(0) → Prevent jump on tab switch
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 export default function LenisProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
       smoothWheel: true,
     });
 
-    // GSAP ScrollTrigger 동기화
+    // Sync with GSAP ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
 
     const ticker = (time: number) => {

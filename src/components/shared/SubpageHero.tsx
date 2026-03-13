@@ -4,15 +4,15 @@ import { useRef, useEffect } from "react";
 import { gsap } from "@/lib/gsap-config";
 
 /* ━━ SubpageHero ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   generousbranding.com .s-marquee-title--hero 재현:
-   - 뷰포트 전체 너비를 채우는 대형 uppercase 타이틀
-   - CSS keyframes로 무한 좌→우 스크롤 (translateX -10%→-110%)
-   - 마운트 시 GSAP: word translateY(83%)→0 리빌
-   - ghost 2개: 텍스트가 끊기지 않도록 연속 루프
+   Reproducing generousbranding.com .s-marquee-title--hero:
+   - Large uppercase title filling the full viewport width
+   - Infinite left-to-right scroll via CSS keyframes (translateX -10% -> -110%)
+   - On mount GSAP: word translateY(83%) -> 0 reveal
+   - 2 ghosts: continuous loop so text never breaks
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 interface SubpageHeroProps {
   title: string;
-  /** 마키 속도 (초). 글자 수가 적을수록 빠르게 설정 권장 */
+  /** Marquee speed (seconds). Shorter text should use faster speeds */
   duration?: number;
 }
 
@@ -35,7 +35,7 @@ export default function SubpageHero({ title, duration = 10 }: SubpageHeroProps) 
   }, []);
 
   return (
-    /* 헤더 높이(138px) 만큼 상단 여백 */
+    /* Top margin matching header height (138px) */
     <div style={{ paddingTop: "138px" }}>
       <h1 className="es-marquee-title">
         <span

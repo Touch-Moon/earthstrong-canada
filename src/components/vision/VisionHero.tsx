@@ -4,11 +4,11 @@ import { useRef, useEffect } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap-config";
 import SubpageHero from "@/components/shared/SubpageHero";
 
-/* ━━ 비전 페이지 인트로 텍스트 라인 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   b-scroll-text 재현:
-   - 대형 텍스트(~60px)를 라인별로 분리
-   - 각 라인: white overlay가 scaleX(1→0)으로 왼→오른 방향 리빌
-   - 타이밍은 라인별 순차 딜레이
+/* ━━ Vision page intro text lines ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Reproducing b-scroll-text:
+   - Large text (~60px) split into individual lines
+   - Each line: white overlay scaleX(1 -> 0) left-to-right reveal
+   - Timing uses sequential per-line delay
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const introLines = [
   "Rooted in efficiency —",
@@ -53,10 +53,10 @@ export default function VisionHero() {
 
   return (
     <>
-      {/* ── 마키 타이틀 ── */}
+      {/* ── Marquee title ── */}
       <SubpageHero title="Vision" duration={9} />
 
-      {/* ── b-scroll-text 인트로 ── */}
+      {/* ── b-scroll-text intro ── */}
       <section className="es-vision-intro">
         <div className="es-vision-intro__inner">
           <div ref={textRef} className="es-vision-intro__text-wrap">

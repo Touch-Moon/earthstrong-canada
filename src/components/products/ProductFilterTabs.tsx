@@ -27,7 +27,7 @@ export default function ProductFilterTabs({ products }: ProductFilterTabsProps) 
   return (
     <div>
       {/* Mode Tabs */}
-      <div className="es-filter-tabs__modes">
+      <div className="es-filter-tabs__modes" role="tablist" aria-label="Product filters">
         {(["all", "expertise"] as FilterMode[]).map((m) => (
           <button
             key={m}
@@ -36,6 +36,9 @@ export default function ProductFilterTabs({ products }: ProductFilterTabsProps) 
               if (m === "all") setActiveCategory(null);
             }}
             className={`es-filter-tabs__mode-btn ${mode === m ? "es-filter-tabs__mode-btn--active" : ""}`}
+            role="tab"
+            aria-selected={mode === m}
+            aria-controls="product-grid"
           >
             {m === "all" ? "All Products" : "By Expertise"}
           </button>
@@ -63,7 +66,7 @@ export default function ProductFilterTabs({ products }: ProductFilterTabsProps) 
       )}
 
       {/* Products grid */}
-      <div className="es-filter-tabs__grid">
+      <div className="es-filter-tabs__grid" id="product-grid" role="tabpanel">
         {filtered.map((product) => (
           <div key={product.slug} className="es-filter-tabs__grid-item">
             <ProductCard product={product} />

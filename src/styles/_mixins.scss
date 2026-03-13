@@ -78,16 +78,11 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-// ── Aspect ratio (before-hack for IE/older) ───────────────────
+// ── Aspect ratio ────────────────────────────────────────────────
 @mixin aspect-ratio($w, $h) {
   position: relative;
   overflow: hidden;
-
-  &::before {
-    display: block;
-    padding-top: percentage($h / $w);
-    content: '';
-  }
+  aspect-ratio: #{$w} / #{$h};
 }
 
 // ── Image fill ────────────────────────────────────────────────
