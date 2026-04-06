@@ -23,7 +23,7 @@ export default function ClientGrid() {
                         src={partner.logo}
                         alt={partner.name}
                         fill
-                        className="object-contain"
+                        className="es-client-grid__partner-img"
                         sizes="80px"
                       />
                     </div>

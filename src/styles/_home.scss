@@ -23,9 +23,9 @@
   }
 
   // ── Gradient overlay ──────────────────────────────────────
-  // 두 방향 그라디언트:
-  //   상단(to bottom): 헤더/네비 영역 가독성 확보 — WCAG AA white text 대비 목표
-  //   하단(to top):   히어로 타이틀 영역 가독성 확보
+  // Dual-direction gradient:
+  //   Top (to bottom): ensures WCAG AA contrast for white nav/header text
+  //   Bottom (to top): ensures legibility for the hero title area
   &__overlay {
     position: absolute;
     inset: 0;

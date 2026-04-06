@@ -7,7 +7,7 @@
 
 // ━━ Page Loader — Stairs Transition ━━━━━━━━━━━━━━━━━━━━━━━━━━
 .es-loader {
-  // Flash 방지용 흰 배경 (컬럼 뒤에서 깜빡임 차단)
+  // White flash-guard background — prevents page flicker behind columns
   &__bg {
     position: fixed;
     inset: 0;
@@ -16,7 +16,7 @@
     pointer-events: none;
   }
 
-  // 5개 컬럼을 가로로 나열하는 컨테이너
+  // Flex container that holds the five stair columns
   &__stairs {
     position: fixed;
     inset: 0;
@@ -25,7 +25,7 @@
     pointer-events: none;
   }
 
-  // 각 컬럼 (GSAP이 scaleY 제어)
+  // Individual column — scaleY driven by GSAP
   &__col {
     flex: 1;
     height: 100%;

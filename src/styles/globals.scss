@@ -33,8 +33,8 @@
 @use 'pages' as *;       // .es-legal, .es-not-found
 
 // ── 7. Dev-only overrides ──────────────────────────────────────
-// Next.js 16 dev indicator (Shadow DOM custom element) — 평상시 숨김.
-// 에러 오버레이는 별도 full-screen 레이어로 동작하므로 영향 없음.
+// Next.js 16 dev indicator (Shadow DOM custom element) — hidden in normal use.
+// Error overlays run on a separate full-screen layer and are unaffected.
 nextjs-portal {
   display: none;
 }
