@@ -19,7 +19,7 @@ const slides = [
     subtitle: "Patented Solumetrix technology",
   },
   {
-    image: "/images/hero/hero-slide-3.jpg",
+    image: "/images/hero/hero-slide-3.webp",
     title: "Rooted In Efficiency",
     subtitle: "Total Nutrition Management",
   },
@@ -260,8 +260,8 @@ export default function HeroSlider() {
         </div>
       ))}
 
-      {/* ── Dark gradient overlay ── */}
-      <div className="es-hero__overlay" />
+      {/* ── Dark gradient overlay (decorative — hidden from screen readers) ── */}
+      <div className="es-hero__overlay" aria-hidden="true" />
 
       {/* ── Per-slide text content ── */}
       {slides.map((slide, i) => (

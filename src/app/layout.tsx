@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import PageLoader from "@/components/layout/PageLoader";
 import LenisProvider from "@/components/layout/LenisProvider";
 import "@/styles/globals.scss";
+import "@/lib/gsap-config";
 
 const urbanist = Urbanist({
   subsets: ["latin"],
@@ -77,7 +78,7 @@ export default function RootLayout({
               contactPoint: {
                 "@type": "ContactPoint",
                 telephone: "+1-204-583-4427",
-                email: "info@Strongterra.com",
+                email: "info@strongterra.com",
                 contactType: "customer service",
                 areaServed: "CA",
               },
@@ -89,6 +90,9 @@ export default function RootLayout({
           }}
         />
         <LenisProvider>
+          <a href="#main-content" className="es-skip-link">
+            Skip to main content
+          </a>
           <PageLoader />
           <Header />
           <main id="main-content">{children}</main>

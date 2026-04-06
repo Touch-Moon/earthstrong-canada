@@ -4,30 +4,37 @@
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 // ── 1. Foundation ─────────────────────────────────────────────
-@import 'variables';   // $c-*, $f-*, $bp-*, spacing tokens
-@import 'mixins';      // @include container, section-padding, md, lg…
-@import 'reset';       // Box-sizing, margin/padding reset
-@import 'base';        // body, h1-h6, ::selection
-@import 'animations';  // @keyframes es-marquee, es-spin…
+@use 'variables' as *;   // $c-*, $f-*, $bp-*, spacing tokens
+@use 'mixins' as *;      // @include container, section-padding, md, lg…
+@use 'reset' as *;       // Box-sizing, margin/padding reset
+@use 'base' as *;        // body, h1-h6, ::selection
+@use 'animations' as *;  // @keyframes es-marquee, es-spin…
 
 // ── 2. Utilities ──────────────────────────────────────────────
-@import 'utilities';   // .es-container, .es-section, .es-anim-*
+@use 'utilities' as *;   // .es-container, .es-section, .es-anim-*
 
 // ── 3. Shared Components ──────────────────────────────────────
-@import 'components';  // .es-btn, .es-badge, .es-scroll-*-badge
+@use 'components' as *;  // .es-btn, .es-badge, .es-scroll-*-badge
 
 // ── 4. Layout ─────────────────────────────────────────────────
-@import 'layout';      // .es-header, .es-mobile-menu, .es-footer, .es-loader
+@use 'layout' as *;      // .es-header, .es-mobile-menu, .es-footer, .es-loader
 
 // ── 5. Subpage Elements ───────────────────────────────────────
-@import 'subpage';     // .es-marquee-title, .es-scroll-line, .es-scroll-overlay
+@use 'subpage' as *;     // .es-marquee-title, .es-scroll-line, .es-scroll-overlay
 
 // ── 6. Page Sections ──────────────────────────────────────────
-@import 'home';        // .es-hero, .es-manifesto, .es-featured, .es-product-grid, .es-small-cards, .es-partner-marquee
-@import 'about';       // .es-mission, .es-team, .es-member, .es-client-grid
-@import 'vision';      // .es-vision-intro, .es-pillars, .es-showcase
-@import 'contact';     // .es-contact-hero, .es-contact-images, .es-contact-partners
-@import 'login';       // .es-login
-@import 'products';    // .es-filter-tabs, .es-product-card, .es-next-product, .es-product-detail
-@import 'nutrition';   // .es-nutrition
-@import 'pages';       // .es-legal, .es-not-found
+@use 'home' as *;        // .es-hero, .es-manifesto, .es-featured, .es-product-grid, .es-small-cards, .es-partner-marquee
+@use 'about' as *;       // .es-mission, .es-team, .es-member, .es-client-grid
+@use 'vision' as *;      // .es-vision-intro, .es-pillars, .es-showcase
+@use 'contact' as *;     // .es-contact-hero, .es-contact-images, .es-contact-partners
+@use 'login' as *;       // .es-login
+@use 'products' as *;    // .es-filter-tabs, .es-product-card, .es-next-product, .es-product-detail
+@use 'nutrition' as *;   // .es-nutrition
+@use 'pages' as *;       // .es-legal, .es-not-found
+
+// ── 7. Dev-only overrides ──────────────────────────────────────
+// Next.js 16 dev indicator (Shadow DOM custom element) — 평상시 숨김.
+// 에러 오버레이는 별도 full-screen 레이어로 동작하므로 영향 없음.
+nextjs-portal {
+  display: none;
+}

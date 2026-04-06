@@ -1,3 +1,6 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Earthstrong Canada — Homepage Sections
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -20,16 +23,17 @@
   }
 
   // ── Gradient overlay ──────────────────────────────────────
+  // 두 방향 그라디언트:
+  //   상단(to bottom): 헤더/네비 영역 가독성 확보 — WCAG AA white text 대비 목표
+  //   하단(to top):   히어로 타이틀 영역 가독성 확보
   &__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.6),
-      rgba(0, 0, 0, 0.2),
-      transparent
-    );
+    background:
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.52) 0%, transparent 28%),
+      linear-gradient(to top,    rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 100%);
     z-index: 10;
+    pointer-events: none;
   }
 
   // ── Slide content container ───────────────────────────────
@@ -95,7 +99,6 @@
     margin: 0;
     border: none;
     border-radius: 9999px;
-    outline: none;
     background: transparent;
     cursor: pointer;
     flex-shrink: 0;

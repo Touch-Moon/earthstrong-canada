@@ -1,3 +1,6 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Earthstrong Canada — Login Page
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -81,7 +84,6 @@
     font-size: 0.875rem;
     color: $c-charcoal;
     transition: border-color 0.2s ease;
-    outline: none;
 
     &:focus {
       border-color: $c-green;

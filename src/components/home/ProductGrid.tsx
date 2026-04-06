@@ -19,7 +19,7 @@ const gridProducts = [
     title: "Collect-N-Go",
     description:
       "Patented soil sampling equipment for precise, repeatable field analysis.",
-    image: "/images/products/collect-n-go.jpg",
+    image: "/images/products/collect-n-go.webp",
   },
 ];
 

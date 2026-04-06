@@ -14,6 +14,7 @@ export default function ContactPage() {
       {/* Hero contact info */}
       <section className="es-contact-hero">
         <div className="es-contact-hero__inner">
+          <h1 className="sr-only">Contact Earthstrong Canada</h1>
           <p className="es-contact-hero__tag">{siteConfig.tagline}</p>
 
           <a

@@ -23,7 +23,7 @@ export default function LoginForm() {
           {/* Logo */}
           <div className="es-login__logo">
             <Image
-              src="/images/logo/earthstrong-logo.png"
+              src="/images/logo/earthstrong-logo.svg"
               alt="Earthstrong Canada"
               width={160}
               height={40}

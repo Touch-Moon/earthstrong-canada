@@ -11,13 +11,13 @@ const smallProducts = [
     slug: "cove",
     title: "Cove",
     description: "Nutrient protection that keeps applied fertilizers available and working.",
-    image: "/images/products/cove.jpg",
+    image: "/images/products/cove.webp",
   },
   {
     slug: "fjord",
     title: "Fjord",
     description: "Foliar nutrients up to 10x more available than soil-applied equivalents.",
-    image: "/images/products/fjord.jpg",
+    image: "/images/products/fjord.webp",
   },
   {
     slug: "advanced-crop-nutrition",

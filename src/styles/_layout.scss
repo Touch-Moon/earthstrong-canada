@@ -1,22 +1,37 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Earthstrong Canada — Header / Footer / PageLoader
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-// ━━ Page Loader ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ━━ Page Loader — Stairs Transition ━━━━━━━━━━━━━━━━━━━━━━━━━━
 .es-loader {
+  // Flash 방지용 흰 배경 (컬럼 뒤에서 깜빡임 차단)
   &__bg {
     position: fixed;
     inset: 0;
     background-color: $c-white;
-    z-index: 99;
+    z-index: 101;
+    pointer-events: none;
   }
 
-  &__mask {
+  // 5개 컬럼을 가로로 나열하는 컨테이너
+  &__stairs {
     position: fixed;
     inset: 0;
+    z-index: 102;
+    display: flex;
+    pointer-events: none;
+  }
+
+  // 각 컬럼 (GSAP이 scaleY 제어)
+  &__col {
+    flex: 1;
+    height: 100%;
     background-color: $c-dark;
-    z-index: 100;
-    transform-origin: top center;
+    transform-origin: bottom center;
+    will-change: transform;
   }
 }
 

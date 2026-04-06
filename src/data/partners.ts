@@ -15,7 +15,7 @@ export const partners: Partner[] = [
   },
   {
     name: "Kindersley District Co-Op",
-    logo: "/images/partners/kindersley-coop.jpg",
+    logo: "/images/partners/kindersley-coop.webp",
     location: "Kindersley",
     province: "Saskatchewan",
   },

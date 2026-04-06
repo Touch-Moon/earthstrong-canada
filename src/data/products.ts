@@ -88,8 +88,8 @@ export const products: Product[] = [
       "Patented soil sampling equipment for precise, repeatable field analysis.",
     description:
       "Collect-N-Go provides standardized, repeatable soil sampling that forms the foundation of precision agriculture. Consistent sampling means consistent data, leading to better nutrient management decisions season after season.",
-    heroImage: "/images/products/collect-n-go.jpg",
-    thumbnailImage: "/images/products/collect-n-go.jpg",
+    heroImage: "/images/products/collect-n-go.webp",
+    thumbnailImage: "/images/products/collect-n-go.webp",
     categories: ["soil-sampling"],
     features: [
       {
@@ -122,8 +122,8 @@ export const products: Product[] = [
       "Nutrient protection that keeps applied fertilizers available and working.",
     description:
       "Cove products protect applied nutrients from becoming unavailable in the soil. By reducing salt effects and promoting root development, Cove ensures your fertilizer investment delivers maximum return.",
-    heroImage: "/images/products/cove.jpg",
-    thumbnailImage: "/images/products/cove.jpg",
+    heroImage: "/images/products/cove.webp",
+    thumbnailImage: "/images/products/cove.webp",
     categories: ["nutrient-protection"],
     features: [
       {
@@ -161,8 +161,8 @@ export const products: Product[] = [
       "Foliar nutrients up to 10x more available than soil-applied equivalents.",
     description:
       "Fjord delivers critical nutrients directly through the leaf when crops need them most. Bypassing soil tie-up, Fjord products provide phosphate, calcium, and magnesium at efficiencies far exceeding traditional soil application.",
-    heroImage: "/images/products/fjord.jpg",
-    thumbnailImage: "/images/products/fjord.jpg",
+    heroImage: "/images/products/fjord.webp",
+    thumbnailImage: "/images/products/fjord.webp",
     categories: ["crop-nutrition", "foliar-application"],
     features: [
       {

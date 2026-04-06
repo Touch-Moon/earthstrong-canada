@@ -122,7 +122,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav (≥lg) */}
-          <nav className="es-header__nav" style={{ gap: "53px" }}>
+          <nav className="es-header__nav" aria-label="Main navigation" style={{ gap: "53px" }}>
             {mainNavItems.map((item) => {
               const isActive =
                 pathname === item.href ||
@@ -236,6 +236,7 @@ export default function Header() {
       >
         <nav
           className="es-mobile-menu__nav"
+          aria-label="Mobile navigation"
           style={{ paddingTop: "138px" }}
         >
           {[...mainNavItems, { label: "Dealer Login", href: "/login" }].map(
